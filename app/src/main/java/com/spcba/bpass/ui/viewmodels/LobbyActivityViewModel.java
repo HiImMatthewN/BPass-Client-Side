@@ -20,6 +20,8 @@ public class LobbyActivityViewModel extends ViewModel {
     private UserRepository userRepository = UserRepository.getInstance();
     private TicketRepository ticketRepository = TicketRepository.getInstance();
     private MutableLiveData<Event<Destination>> selectedDestinationLiveData = new MutableLiveData<>();
+    private MutableLiveData<Event<Ticket>> selectedTicketLiveData = new MutableLiveData<>();
+
 
     private static final String TAG = "LobbyActivityViewModel";
 
@@ -36,19 +38,22 @@ public class LobbyActivityViewModel extends ViewModel {
         selectedDestinationLiveData.postValue(new Event<>(destination));
     }
 
-
+    public void setSelectedTicket(Ticket ticket){
+        selectedTicketLiveData.postValue(new Event<>(ticket));
+    }
     public LiveData<Event<Destination>> getSelectedDestination() {
         return selectedDestinationLiveData;
     }
 
+    public LiveData<Event<Ticket>> getSelectedTicketLiveData() {
+        return selectedTicketLiveData;
+    }
 
     public LiveData<User> getUser(){
         return userRepository.getUserLiveData();
     }
     public LiveData<List<Ticket>> getTickets(){
         return ticketRepository.getTickets();
-
-
     }
 
 }

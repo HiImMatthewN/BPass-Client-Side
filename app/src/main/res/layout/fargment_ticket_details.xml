@@ -8,17 +8,16 @@
 
     <ImageButton
 
-        android:layout_margin="8dp"
         android:id="@+id/backBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="@id/ticketView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        app:layout_constraintBottom_toBottomOf="@id/backBtn"
         android:id="@+id/ticketDetailsLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,6 +27,7 @@
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/backBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -50,66 +50,169 @@
         app:ticketScallopRadius="10dp"
         app:ticketShowBorder="false"
         app:ticketShowDivider="false" />
-    <View
-        android:id="@+id/qrCodeLayout"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/guideline7"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
 
-        />
-    <LinearLayout
-        android:weightSum="5"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:fontFamily="@font/main_font"
+        app:drawableStartCompat="@drawable/ic_person_filled"
+        app:layout_constraintBottom_toBottomOf="@id/ticketView"
+        app:layout_constraintEnd_toEndOf="@id/ticketView"
+        app:layout_constraintHorizontal_bias=".95"
+        app:layout_constraintStart_toStartOf="@id/ticketView" />
 
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:background="@drawable/bg_filled_with_border"
-        android:layout_width="match_parent"
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:textSize="16sp"
+        android:id="@+id/fareTv"
+        android:fontFamily="@font/main_font"
+        android:gravity="center"
+        app:drawableStartCompat="@drawable/ic_bus_front"
+        app:layout_constraintBottom_toBottomOf="@+id/ticketView"
+        app:layout_constraintEnd_toEndOf="@+id/ticketView"
+        app:layout_constraintHorizontal_bias=".05"
+        app:layout_constraintStart_toStartOf="@id/ticketView" />
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/main_font_bold"
+        android:gravity="center"
+        android:text="BPass"
+        android:textColor="@color/black"
+        app:drawableTopCompat="@drawable/ic_logo_bpass_small"
+        app:layout_constraintStart_toStartOf="@id/ticketView"
+        app:layout_constraintTop_toTopOf="@id/ticketView" />
+
+    <TextView
+        android:id="@+id/startDestination"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/main_font"
+        android:gravity="center"
+        android:text="Destination"
+        android:textSize="16sp"
+        android:padding="8dp"
+
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/ticketView"
+        app:layout_constraintEnd_toStartOf="@id/startEndIcon"
+        app:layout_constraintStart_toStartOf="@id/ticketView"
+        app:layout_constraintTop_toTopOf="@id/ticketView" />
+    <TextView
+        android:background="@drawable/bg_ticket_available"
+        android:fontFamily="@font/main_font"
+        android:id="@+id/availability"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Available"
+        android:layout_margin="16dp"
+        android:textSize="16sp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="@id/endDestination"
+        app:layout_constraintTop_toTopOf="@id/ticketView"
+        app:layout_constraintEnd_toEndOf="@id/ticketView"
+         />
+    <TextView
+        android:id="@+id/endDestination"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/main_font"
+        android:gravity="center"
+        android:text="Destination"
+        android:textSize="16sp"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/ticketView"
+        app:layout_constraintEnd_toEndOf="@id/ticketView"
+        app:layout_constraintStart_toEndOf="@id/startEndIcon"
+        app:layout_constraintTop_toTopOf="@id/ticketView" />
+
+    <ImageView
+        android:id="@+id/startEndIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_start_end"
+        app:layout_constraintBottom_toBottomOf="@id/ticketView"
+        app:layout_constraintEnd_toEndOf="@id/ticketView"
+        app:layout_constraintStart_toStartOf="@id/ticketView"
+        app:layout_constraintTop_toTopOf="@id/ticketView" />
+
+    <View
+        android:id="@+id/qrCodeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline7"
+
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_filled_with_border"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:weightSum="5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/qrCodeLayout">
+
         <ImageView
-            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_qr_code"
             android:layout_gravity="center"
-            />
-        <TextView
-            android:gravity="center"
-            android:layout_weight="3"
-            android:layout_gravity="center"
-            android:textColor="@color/appleGreen"
-            android:fontFamily="@font/main_font_bold"
-            android:text="Show this QR Code upon collecting of ticket"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <ImageView
             android:layout_weight="1"
+            android:src="@drawable/ic_qr_code" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:fontFamily="@font/main_font_bold"
+            android:gravity="center"
+            android:text="Show this QR Code upon collecting of ticket"
+            android:textColor="@color/appleGreen" />
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:src="@drawable/ic_info"
-            />
+            android:layout_weight="1"
+            android:src="@drawable/ic_info" />
     </LinearLayout>
+
     <ImageView
         android:id="@+id/qrCodeIv"
 
-        app:layout_constraintHeight_percent=".4"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintStart_toStartOf="@id/qrCodeLayout"
-        app:layout_constraintEnd_toEndOf="@id/qrCodeLayout"
-        app:layout_constraintTop_toTopOf="@id/qrCodeLayout"
         app:layout_constraintBottom_toBottomOf="@id/qrCodeLayout"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@id/qrCodeLayout"
+        app:layout_constraintHeight_percent=".4"
+        app:layout_constraintStart_toStartOf="@id/qrCodeLayout"
+        app:layout_constraintTop_toTopOf="@id/qrCodeLayout"
 
         />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline7"
         android:layout_width="wrap_content"

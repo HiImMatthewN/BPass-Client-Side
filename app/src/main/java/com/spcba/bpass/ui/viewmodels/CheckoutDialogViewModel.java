@@ -51,7 +51,7 @@ public class CheckoutDialogViewModel extends ViewModel {
             Log.d(TAG, "buyTickets: Balance is enough");
             double newBalance = user.getBalance() - totalPrice;
             userRepository.updateNewBalance(newBalance);
-            for (int i=0;i<=totalTickets;i++){
+            for (int i=1;i<=totalTickets;i++){
                 ticketRepository.addTicket(createTicket(selectedDestination));
             }
 

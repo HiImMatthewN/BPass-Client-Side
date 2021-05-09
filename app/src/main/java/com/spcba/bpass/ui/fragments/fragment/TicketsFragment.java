@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +24,7 @@ public class TicketsFragment extends Fragment {
     private RecyclerView ticketRv;
     private TicketAdapter ticketAdapter;
     private LobbyActivityViewModel viewModel;
+    private TextView noTicketsTv;
     private NavController navController;
     @Nullable
     @Override
@@ -37,14 +39,22 @@ public class TicketsFragment extends Fragment {
         navController = Navigation.findNavController(view);
         viewModel = new ViewModelProvider(requireActivity()).get(LobbyActivityViewModel.class);
         ticketRv = binder.ticketsRv;
+        noTicketsTv = binder.noTicketsTv;
         ticketAdapter = new TicketAdapter();
         ticketRv.setAdapter(ticketAdapter);
 
         viewModel.getTickets().observe(getViewLifecycleOwner(),tickets -> {
+            if (tickets.size() == 0){
+                noTicketsTv.setVisibility(View.VISIBLE);
+                return;
+            }
+            noTicketsTv.setVisibility(View.GONE);
             ticketAdapter.insertData(tickets);
         });
         ticketAdapter.getSelectedTicket().observe(getViewLifecycleOwner(),selectedTicketEvent->{
                     if (selectedTicketEvent.isHandled()) return;
+
+                    viewModel.setSelectedTicket(selectedTicketEvent.getContentIfNotHandled());
                     navController.navigate(R.id.action_transactionHistoryFragment_to_ticketDetailsFragment);
 
 

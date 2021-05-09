@@ -67,7 +67,7 @@
             android:text="End Destination"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/ticketIcon"
-
+            android:paddingEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/startEndIcon"
             app:layout_constraintTop_toTopOf="@id/ticketIcon" />
