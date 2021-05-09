@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/itemLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="8dp"
+    android:elevation="4dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    app:cardCornerRadius="8dp"
+    android:focusable="true">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:layout_marginStart="8dp"
+            android:id="@+id/destinationIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_circular_destination"
+            android:padding="8dp"
+            android:src="@drawable/ic_destination"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:fontFamily="@font/main_font"
+            android:id="@+id/fareTv"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:padding="8dp"
+            android:gravity="center"
+            android:text="24"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/destinationIcon"
+            app:layout_constraintStart_toEndOf="@id/destinationIcon"
+            app:layout_constraintTop_toTopOf="@id/destinationIcon" />
+        <TextView
+            android:fontFamily="@font/main_font_bold"
+            android:id="@+id/startDestinationTv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="Start Destination"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/destinationIcon"
+            app:layout_constraintEnd_toStartOf="@id/startEndIcon"
+            app:layout_constraintStart_toEndOf="@id/fareTv"
+            app:layout_constraintTop_toTopOf="@id/destinationIcon" />
+
+        <ImageView
+            android:id="@+id/startEndIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_start_end"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fareTv"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/main_font_bold"
+
+            android:id="@+id/endDestinationTv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="End Destination"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/destinationIcon"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/startEndIcon"
+            app:layout_constraintTop_toTopOf="@id/destinationIcon" />
+
+        <TextView
+            android:fontFamily="@font/main_font"
+            android:id="@+id/leaveTimeTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Leave Time"
+            android:textSize="16sp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/startDestinationTv"
+            app:layout_constraintStart_toStartOf="@id/startDestinationTv"
+            app:layout_constraintTop_toBottomOf="@id/startDestinationTv" />
+        <TextView
+            android:fontFamily="@font/main_font"
+            android:id="@+id/arriveTimeTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Arrive Time"
+            android:textSize="16sp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/endDestinationTv"
+            app:layout_constraintStart_toStartOf="@id/endDestinationTv"
+            app:layout_constraintTop_toBottomOf="@id/endDestinationTv" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

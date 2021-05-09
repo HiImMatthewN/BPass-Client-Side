@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph_login"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.spcba.bpass.ui.fragments.fragment.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            android:id="@+id/action_loginFragment_to_enterNumberFragment"
+            app:destination="@id/enterNumberFragment" />
+        <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            android:id="@+id/action_loginFragment_to_basicInfoFragment"
+            app:destination="@id/basicInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterNumberFragment"
+        android:name="com.spcba.bpass.ui.fragments.fragment.EnterNumberFragment"
+        android:label="EnterNumberFragment" >
+        <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            android:id="@+id/action_enterNumberFragment_to_enterCodeFragment"
+            app:destination="@id/enterCodeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterCodeFragment"
+        android:name="com.spcba.bpass.ui.fragments.fragment.EnterCodeFragment"
+        android:label="EnterCodeFragment" />
+    <fragment
+        android:id="@+id/basicInfoFragment"
+        android:name="com.spcba.bpass.ui.fragments.fragment.BasicInfoFragment"
+        android:label="BasicInfoFragment" >
+        <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            android:id="@+id/action_basicInfoFragment_to_enterCodeFragment"
+            app:destination="@id/enterCodeFragment" />
+    </fragment>
+</navigation>

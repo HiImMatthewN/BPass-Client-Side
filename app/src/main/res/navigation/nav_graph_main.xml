@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph_main"
+    app:startDestination="@id/lobbyFragment">
+
+    <fragment
+        android:id="@+id/lobbyFragment"
+        android:name="com.spcba.bpass.ui.fragments.fragment.LobbyFragment"
+        android:label="LobbyFragment" />
+    <fragment
+        android:id="@+id/transactionHistoryFragment"
+        android:name="com.spcba.bpass.ui.fragments.fragment.TicketsFragment"
+        android:label="TransactionHistoryFragment" >
+        <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            android:id="@+id/action_transactionHistoryFragment_to_ticketDetailsFragment"
+            app:destination="@id/ticketDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ticketDetailsFragment"
+        android:name="com.spcba.bpass.ui.fragments.fragment.TicketDetailsFragment"
+        android:label="TicketDetailsFragment" />
+</navigation>

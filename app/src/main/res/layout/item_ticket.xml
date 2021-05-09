@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/itemLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="8dp"
+    android:elevation="4dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    app:cardCornerRadius="8dp"
+    android:focusable="true">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingBottom="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/ticketIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_circular_destination"
+            android:padding="8dp"
+            android:src="@drawable/ic_bus_ticket_small"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:fontFamily="@font/main_font_bold"
+            android:id="@+id/startDestinationTv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="Start Destination"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/ticketIcon"
+            app:layout_constraintEnd_toStartOf="@id/startEndIcon"
+            app:layout_constraintStart_toEndOf="@id/ticketIcon"
+            app:layout_constraintTop_toTopOf="@id/ticketIcon" />
+
+        <ImageView
+            android:id="@+id/startEndIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_start_end"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ticketIcon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/main_font_bold"
+            android:id="@+id/endDestinationTv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="End Destination"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/ticketIcon"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/startEndIcon"
+            app:layout_constraintTop_toTopOf="@id/ticketIcon" />
+
+
+        <TextView
+            android:background="@drawable/bg_ticket_available"
+            android:fontFamily="@font/main_font"
+            android:id="@+id/availability"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Available"
+            android:textSize="16sp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/endDestinationTv"
+            app:layout_constraintStart_toStartOf="@id/endDestinationTv"
+            app:layout_constraintTop_toBottomOf="@id/endDestinationTv" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
