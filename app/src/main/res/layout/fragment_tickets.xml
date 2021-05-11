@@ -35,14 +35,23 @@
                 android:layout_height="match_parent"
                 android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_ticket"
-                android:paddingBottom="48dp"
-
-                />
+                android:paddingBottom="48dp" />
 
         </LinearLayout>
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        android:id="@+id/noTicketsTv"
+        android:text="You have no tickets"
+        android:fontFamily="@font/main_font"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
