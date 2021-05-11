@@ -18,6 +18,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -25,6 +26,7 @@ import com.google.zxing.common.BitMatrix;
 import com.spcba.bpass.R;
 import com.spcba.bpass.data.datamodels.Ticket;
 import com.spcba.bpass.databinding.FargmentTicketDetailsBinding;
+import com.spcba.bpass.ui.fragments.dialog.TicketScannedDialog;
 import com.spcba.bpass.ui.viewmodels.LobbyActivityViewModel;
 
 import static android.graphics.Color.BLACK;
@@ -42,7 +44,7 @@ public class TicketDetailsFragment extends Fragment {
 
 
     private LobbyActivityViewModel viewModel;
-
+    public static final String TICKET_REQ = "Ticket";
 
     @Nullable
     @Override
@@ -72,18 +74,19 @@ public class TicketDetailsFragment extends Fragment {
             Ticket ticket = selectedTicketEvent.getContentIfNotHandled();
             startDestination.setText(ticket.getDestination().getStartDestination());
             endDestination.setText(ticket.getDestination().getEndDestination());
-            fareTv.setText("₱"+ticket.getDestination().getFare());
+            fareTv.setText("₱" + ticket.getDestination().getFare());
             if (ticket.isUsed()) {
-               availability.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bg_ticket_used));
-               availability.setText("Used");
+                availability.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bg_ticket_used));
+                availability.setText("Used");
             } else {
-               availability.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bg_ticket_available));
+                availability.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bg_ticket_available));
                 availability.setText("Available");
             }
 
 
             try {
-                Glide.with(requireContext()).asBitmap().load(createQrCodeBitMap(ticket.getId())).into(qrCodeIv);
+                String qrCodeValue = TICKET_REQ + "-" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "-" + ticket.getId();
+                Glide.with(requireContext()).asBitmap().load(createQrCodeBitMap(qrCodeValue)).into(qrCodeIv);
 
             } catch (WriterException e) {
                 e.printStackTrace();
@@ -91,7 +94,17 @@ public class TicketDetailsFragment extends Fragment {
 
 
         });
+        viewModel.getTicketAccepted().observe(getViewLifecycleOwner(), getAcceptedTicketEvent -> {
+            if (getAcceptedTicketEvent.isHandled()) return;
+            if (getAcceptedTicketEvent.getContentIfNotHandled() != null) {
+                availability.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bg_ticket_used));
+                availability.setText("Used");
+                TicketScannedDialog dialog = new TicketScannedDialog();
+                dialog.show(getChildFragmentManager(),"Ticket Scanned");
 
+            }
+
+        });
 
     }
 

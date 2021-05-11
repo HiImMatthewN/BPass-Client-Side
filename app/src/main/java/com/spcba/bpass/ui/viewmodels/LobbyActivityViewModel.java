@@ -31,6 +31,7 @@ public class LobbyActivityViewModel extends ViewModel {
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         userRepository.loadUserData(uid);
         ticketRepository.getUserTickets();
+        ticketRepository.addTicketStatusChanged();
     }
 
     public void setSelectedDestination(Destination destination){
@@ -54,6 +55,9 @@ public class LobbyActivityViewModel extends ViewModel {
     }
     public LiveData<List<Ticket>> getTickets(){
         return ticketRepository.getTickets();
+    }
+    public LiveData<Event<Ticket>> getTicketAccepted(){
+        return ticketRepository.getTicketAccepted();
     }
 
 }
