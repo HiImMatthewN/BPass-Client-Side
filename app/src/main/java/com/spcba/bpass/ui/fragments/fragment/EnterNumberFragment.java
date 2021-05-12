@@ -16,7 +16,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.spcba.bpass.R;
-import com.spcba.bpass.UneditableTextWatcher;
+import com.spcba.bpass.ui.custom.UneditableTextWatcher;
 import com.spcba.bpass.databinding.FragmentEnterNumberBinding;
 import com.spcba.bpass.ui.viewmodels.LoginActivityViewModel;
 

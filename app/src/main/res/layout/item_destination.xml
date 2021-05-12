@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_circular_destination"
             android:padding="8dp"
-            android:src="@drawable/ic_destination"
+            android:src="@drawable/ic_bus_stop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

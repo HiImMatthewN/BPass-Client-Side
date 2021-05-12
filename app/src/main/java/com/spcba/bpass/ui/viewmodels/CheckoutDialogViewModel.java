@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.spcba.bpass.Event;
+import com.spcba.bpass.data.datautils.Event;
 import com.spcba.bpass.data.datamodels.Destination;
 import com.spcba.bpass.data.datamodels.Ticket;
 import com.spcba.bpass.data.datamodels.User;

@@ -1,4 +1,4 @@
-package com.spcba.bpass;
+package com.spcba.bpass.ui.custom;
 
 import android.text.Editable;
 import android.text.Selection;

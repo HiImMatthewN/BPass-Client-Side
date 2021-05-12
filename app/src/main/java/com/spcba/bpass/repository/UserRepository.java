@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.spcba.bpass.Event;
+import com.spcba.bpass.data.datautils.Event;
 import com.spcba.bpass.data.datamodels.User;
 
 import java.util.HashMap;

@@ -21,7 +21,7 @@ import androidx.navigation.Navigation;
 
 import com.bumptech.glide.Glide;
 import com.spcba.bpass.R;
-import com.spcba.bpass.UneditableTextWatcher;
+import com.spcba.bpass.ui.custom.UneditableTextWatcher;
 import com.spcba.bpass.databinding.FragmentBasicInfoBinding;
 import com.spcba.bpass.ui.viewmodels.LoginActivityViewModel;
 
