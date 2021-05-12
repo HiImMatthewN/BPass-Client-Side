@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,7 +34,7 @@ import static android.graphics.Color.WHITE;
 public class TicketDetailsFragment extends Fragment {
     private FargmentTicketDetailsBinding binder;
     private ImageView qrCodeIv;
-    private ImageButton backBtn;
+    private TextView ticketDetailsTv;
     private TextView startDestination;
     private TextView endDestination;
     private TextView availability;
@@ -59,13 +58,13 @@ public class TicketDetailsFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(LobbyActivityViewModel.class);
         navController = Navigation.findNavController(view);
         qrCodeIv = binder.qrCodeIv;
-        backBtn = binder.backBtn;
+        ticketDetailsTv = binder.ticketDetailsLabel;
         availability = binder.availability;
         startDestination = binder.startDestination;
         endDestination = binder.endDestination;
         fareTv = binder.fareTv;
 
-        backBtn.setOnClickListener(btn -> {
+        ticketDetailsTv.setOnClickListener(btn -> {
             navController.popBackStack();
 
         });

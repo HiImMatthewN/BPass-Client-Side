@@ -33,6 +33,7 @@ public class LobbyFragment extends Fragment {
     private RecyclerView destinationsRv;
     private TextView nameTv;
     private TextView balanceTv;
+    private TextView locationTv;
     private CircularImageView userProfilePic;
     private DestinationsAdapter destinationsAdapter;
     private Chip chipOne;
@@ -60,6 +61,7 @@ public class LobbyFragment extends Fragment {
         destinationsRv = binder.destinationsRv;
         nameTv = binder.userName;
         balanceTv = binder.balanceTv;
+        locationTv = binder.locationTv;
         userProfilePic = binder.userProfilePic;
         destinationsAdapter = new DestinationsAdapter();
         destinationsRv.setAdapter(destinationsAdapter);
@@ -102,6 +104,10 @@ public class LobbyFragment extends Fragment {
             balanceTv.setText(String.format("₱%.2f", user.getBalance()));
             Glide.with(requireContext()).load(Uri.parse(user.getProfilePicUrl())).into(userProfilePic);
             fadeOutView(nameTv);
+
+        });
+        viewModel.getLocationLiveData().observe(getViewLifecycleOwner(),locationUpdates ->{
+                    locationTv.setText(locationUpdates);
 
         });
 

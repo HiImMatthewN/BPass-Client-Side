@@ -1,4 +1,4 @@
-package com.spcba.bpass;
+package com.spcba.bpass.data.datautils;
 
 public class Event<T> {
     private boolean hasBeenHandled = false;

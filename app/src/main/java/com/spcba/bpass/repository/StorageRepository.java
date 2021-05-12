@@ -9,7 +9,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.spcba.bpass.Event;
+import com.spcba.bpass.data.datautils.Event;
 
 import java.util.UUID;
 

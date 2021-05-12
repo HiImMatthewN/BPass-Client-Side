@@ -11,7 +11,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.spcba.bpass.Event;
+import com.spcba.bpass.data.datautils.Event;
 import com.spcba.bpass.R;
 import com.spcba.bpass.data.datamodels.Ticket;
 import com.spcba.bpass.databinding.ItemTicketBinding;

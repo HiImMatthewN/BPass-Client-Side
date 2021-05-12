@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.spcba.bpass.Event;
+import com.spcba.bpass.data.datautils.Event;
 import com.spcba.bpass.data.datamodels.User;
 import com.spcba.bpass.repository.UserRepository;
 import com.spcba.bpass.repository.StorageRepository;

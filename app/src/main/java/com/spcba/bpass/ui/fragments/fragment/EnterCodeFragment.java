@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.spcba.bpass.GenericTextWatcher;
+import com.spcba.bpass.ui.custom.GenericTextWatcher;
 import com.spcba.bpass.R;
 import com.spcba.bpass.databinding.FragmentEnterCodeBinding;
 import com.spcba.bpass.ui.activities.LobbyActivity;
