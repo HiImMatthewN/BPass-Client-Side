@@ -13,13 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BPass">
         <activity android:name=".ui.activities.LobbyActivity"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="nosensor"
             />
         <activity android:name=".ui.activities.LoginActivity"
             android:screenOrientation="nosensor"
+            android:windowSoftInputMode="adjustPan"
+
             />
         <activity android:name=".ui.activities.SplashScreenActivity"
             android:screenOrientation="nosensor"
+            android:windowSoftInputMode="adjustPan"
 
             >
             <intent-filter>
