@@ -1,112 +1,379 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:padding="8dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    android:padding="8dp">
+
     <TextView
         android:id="@+id/backTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/main_font_bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/black"
         android:text="Top Up"
-        app:drawableStartCompat="@drawable/ic_back_black" />
-
-    <View
-        android:clickable="true"
-        android:id="@+id/walletView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/backTv"
-        app:layout_constraintDimensionRatio="16:9"
-        app:layout_constraintWidth_percent=".9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias=".1"
-        android:elevation="2dp"
-        android:background="@drawable/bg_topup_card"
-        android:focusable="true" />
-        <TextView
-            android:id="@+id/bpassLabel"
-            android:translationZ="2dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@id/walletView"
-            app:layout_constraintBottom_toBottomOf="@id/walletView"
-            android:layout_margin="16dp"
-            android:fontFamily="@font/main_font_bold"
-            android:text="BPass"
-            android:textColor="@color/white" />
-    <TextView
-        android:id="@+id/balanceLabel"
-        android:translationZ="2dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        app:layout_constraintTop_toTopOf="@id/walletView"
-        app:layout_constraintStart_toStartOf="@id/walletView"
-        android:layout_margin="16dp"
-        android:fontFamily="@font/main_font"
-        android:text="Current Balance:"
-        android:textColor="@color/white" />
-    <TextView
-        android:id="@+id/balanceTv"
-        android:translationZ="2dp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@id/balanceLabel"
-        app:layout_constraintStart_toStartOf="@id/balanceLabel"
-        app:layout_constraintEnd_toEndOf="@id/walletView"
-        android:fontFamily="@font/main_font_bold"
-        android:text="10000000000"
-        android:textColor="@color/white" />
-
-    <TextView
-        android:id="@+id/nameTv"
-        android:translationZ="2dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/bpassLabel"
-        app:layout_constraintStart_toStartOf="@id/balanceLabel"
-        android:fontFamily="@font/main_font"
-        android:text="10000000000"
-        android:textColor="@color/white" />
-    <TextView
-        android:id="@+id/mobileNumberTv"
-        android:translationZ="2dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/nameTv"
-        app:layout_constraintStart_toStartOf="@id/balanceLabel"
-        app:layout_constraintTop_toBottomOf="@id/balanceTv"
-        app:layout_constraintVertical_bias=".95"
-        android:fontFamily="@font/main_font_bold"
-        android:text="10000000000"
-        android:textColor="@color/white" />
-    <EditText
-        android:id="@+id/amountEt"
-        app:layout_constraintWidth_percent=".76"
-        android:layout_width="0dp"
-        android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@id/walletView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias=".2"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:fontFamily="@font/main_font_bold"
-        android:hint="Enter Amount"
-        android:background="@drawable/border_edittext_bg"
+        app:drawableStartCompat="@drawable/ic_back_black"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/backTv">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="72dp">
+
+
+            <View
+                android:id="@+id/walletView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_topup_card"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:focusable="true"
+                app:layout_constraintDimensionRatio="16:9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                app:layout_constraintWidth_percent=".9" />
+
+            <TextView
+                android:id="@+id/bpassLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:fontFamily="@font/main_font_bold"
+                android:text="BPass"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:translationZ="2dp"
+                app:layout_constraintBottom_toBottomOf="@id/walletView"
+                app:layout_constraintEnd_toEndOf="@id/walletView" />
+
+            <TextView
+                android:id="@+id/balanceLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:fontFamily="@font/main_font"
+                android:text="Current Balance:"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:translationZ="2dp"
+                app:layout_constraintStart_toStartOf="@id/walletView"
+                app:layout_constraintTop_toTopOf="@id/walletView" />
+
+            <TextView
+                android:id="@+id/balanceTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/main_font_bold"
+                android:text="10000000000"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:translationZ="2dp"
+                app:layout_constraintEnd_toEndOf="@id/walletView"
+                app:layout_constraintStart_toStartOf="@id/balanceLabel"
+                app:layout_constraintTop_toBottomOf="@id/balanceLabel" />
+
+            <TextView
+                android:id="@+id/nameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/main_font"
+                android:text="10000000000"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:translationZ="2dp"
+                app:layout_constraintBottom_toBottomOf="@id/bpassLabel"
+                app:layout_constraintStart_toStartOf="@id/balanceLabel" />
+
+            <TextView
+                android:id="@+id/mobileNumberTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/main_font_bold"
+                android:text="10000000000"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:translationZ="2dp"
+                app:layout_constraintBottom_toTopOf="@id/nameTv"
+                app:layout_constraintStart_toStartOf="@id/balanceLabel"
+                app:layout_constraintTop_toBottomOf="@id/balanceTv"
+                app:layout_constraintVertical_bias=".95" />
+
+            <TextView
+                android:id="@+id/historyTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_top_bottom_divider"
+                android:drawablePadding="8dp"
+                android:fontFamily="@font/main_font_bold"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="Transaction History"
+                android:textSize="16sp"
+                app:drawableEndCompat="@drawable/ic_history"
+                app:layout_constraintBottom_toTopOf="@id/amountEt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/walletView" />
+
+            <EditText
+                android:id="@+id/amountEt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_edittext_bg"
+                android:fontFamily="@font/main_font_bold"
+                android:hint="Enter Amount"
+                android:inputType="number"
+                android:padding="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/walletView"
+                app:layout_constraintVertical_bias=".15"
+                app:layout_constraintWidth_percent=".8" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/amountTenBtn"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/border_edittext_bg_pink"
+                android:fontFamily="@font/main_font_bold"
+                android:gravity="center"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="₱10"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/amountTwentyBtn"
+                app:layout_constraintHeight_percent=".08"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@id/amountEt"
+                app:layout_constraintTop_toBottomOf="@id/amountEt"
+                app:layout_constraintVertical_bias=".1"
+                app:layout_constraintWidth_percent=".225" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/amountTwentyBtn"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/border_edittext_bg_pink"
+                android:fontFamily="@font/main_font_bold"
+                android:gravity="center"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="₱20"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/amountFiftyBtn"
+
+
+                app:layout_constraintHeight_percent=".08"
+                app:layout_constraintHorizontal_bias="0.5"
+
+                app:layout_constraintStart_toEndOf="@+id/amountTenBtn"
+                app:layout_constraintTop_toBottomOf="@id/amountEt"
+                app:layout_constraintVertical_bias=".1"
+                app:layout_constraintWidth_percent=".225" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/amountFiftyBtn"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/border_edittext_bg_pink"
+                android:fontFamily="@font/main_font_bold"
+                android:gravity="center"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="₱50"
+                android:textColor="@color/black"
+
+
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/amountEt"
+                app:layout_constraintHeight_percent=".08"
+                app:layout_constraintHorizontal_bias="0.5"
+
+                app:layout_constraintStart_toEndOf="@+id/amountTwentyBtn"
+                app:layout_constraintTop_toBottomOf="@id/amountEt"
+                app:layout_constraintVertical_bias=".1"
+                app:layout_constraintWidth_percent=".225" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/amountHundredBtn"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/border_edittext_bg_pink"
+                android:fontFamily="@font/main_font_bold"
+                android:gravity="center"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="₱100"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="@id/amountTenBtn"
+
+                app:layout_constraintHeight_percent=".08"
+
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@id/amountTenBtn"
+                app:layout_constraintTop_toBottomOf="@id/amountTenBtn" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/amountTwoHundredBtn"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/border_edittext_bg_pink"
+                android:fontFamily="@font/main_font_bold"
+                android:gravity="center"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+
+                android:text="₱200"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="@id/amountTwentyBtn"
+
+                app:layout_constraintHeight_percent=".08"
+
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@id/amountTwentyBtn"
+                app:layout_constraintTop_toBottomOf="@id/amountTwentyBtn" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/amountFiveHundredBtn"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/border_edittext_bg_pink"
+                android:fontFamily="@font/main_font_bold"
+                android:gravity="center"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="₱500"
+                android:textColor="@color/black"
+
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="@id/amountFiftyBtn"
+                app:layout_constraintHeight_percent=".08"
+
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@id/amountFiftyBtn"
+                app:layout_constraintTop_toBottomOf="@id/amountFiftyBtn" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/amountThousandBtn"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/border_edittext_bg_pink"
+                android:fontFamily="@font/main_font_bold"
+                android:gravity="center"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="₱1000"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="@id/amountTwoHundredBtn"
+                app:layout_constraintHeight_percent=".08"
+
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@id/amountTwoHundredBtn"
+                app:layout_constraintTop_toBottomOf="@id/amountTwoHundredBtn" />
+
+            <TextView
+                android:id="@+id/paymentOptionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/main_font"
+                android:text="Select Payment Option"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="italic"
+                app:layout_constraintStart_toStartOf="@id/amountHundredBtn"
+                app:layout_constraintTop_toBottomOf="@id/amountThousandBtn" />
+
+            <RadioGroup
+                android:id="@+id/paymentOptions"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/paymentOptionLabel">
+
+                <RadioButton
+                    android:id="@+id/gcashRb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:drawableStart="@drawable/logo_gcash"
+                    app:buttonTint="@color/pinkDark" />
+
+                <RadioButton
+                    android:id="@+id/cashRb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:drawableStart="@drawable/ic_money"
+                    app:buttonTint="@color/pinkDark" />
+            </RadioGroup>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/confirmPaymentBtn"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="72dp"
+                android:background="@drawable/circular_button_bg_pink"
+                android:fontFamily="@font/main_font_bold"
+                android:stateListAnimator="@null"
+                android:text="Confirm Payment"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/paymentOptions"
+                app:layout_constraintWidth_percent=".75" />
+
+            <ProgressBar
+
+                android:id="@+id/progressBar"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="8dp"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/white"
+                android:translationZ="4dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/confirmPaymentBtn"
+                app:layout_constraintEnd_toEndOf="@id/confirmPaymentBtn"
+                app:layout_constraintStart_toStartOf="@id/confirmPaymentBtn"
+                app:layout_constraintTop_toTopOf="@id/confirmPaymentBtn" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

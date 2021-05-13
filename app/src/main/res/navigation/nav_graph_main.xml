@@ -35,5 +35,28 @@
     <fragment
         android:id="@+id/topUpFragment"
         android:name="com.spcba.bpass.ui.fragments.fragment.TopUpFragment"
-        android:label="TopUpFragment" />
+        android:label="TopUpFragment" >
+        <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            android:id="@+id/action_topUpFragment_to_topUpDetailsFragment"
+            app:destination="@id/topUpDetailsFragment" />
+        <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            android:id="@+id/action_topUpFragment_to_transactionHistoryFragment2"
+            app:destination="@id/transactionHistoryFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/topUpDetailsFragment"
+        android:name="com.spcba.bpass.ui.fragments.fragment.TopUpDetailsFragment"
+        android:label="TopUpDetailsFragment" />
+    <fragment
+        android:id="@+id/transactionHistoryFragment2"
+        android:name="com.spcba.bpass.ui.fragments.fragment.TransactionHistoryFragment"
+        android:label="TransactionHistoryFragment" />
 </navigation>
