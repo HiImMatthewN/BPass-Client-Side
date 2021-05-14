@@ -7,13 +7,17 @@
     android:background="@color/darkBlue">
 
     <TextView
+        android:id="@+id/backBTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:fontFamily="@font/main_font"
         android:gravity="center"
         android:text="Transactions"
         android:textColor="@color/white"
         android:textSize="24sp"
+        app:drawableStartCompat="@drawable/ic_back"
         app:layout_constraintBottom_toTopOf="@id/transactionsLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,13 +36,13 @@
         app:layout_constraintTop_toBottomOf="@id/guideline6">
 
         <androidx.recyclerview.widget.RecyclerView
-            tools:listitem="@layout/item_receipts"
             android:id="@+id/transactionsRv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:overScrollMode="never"
             android:paddingBottom="48dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_receipts" />
 
     </LinearLayout>
 

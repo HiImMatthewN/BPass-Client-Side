@@ -3,6 +3,7 @@ package com.spcba.bpass.ui.viewmodels;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.spcba.bpass.data.datamodels.TopUp;
@@ -11,7 +12,6 @@ import com.spcba.bpass.data.datautils.Event;
 import com.spcba.bpass.repository.TopUpRepository;
 
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class TopUpFragmentViewModel extends ViewModel {
@@ -21,13 +21,13 @@ public class TopUpFragmentViewModel extends ViewModel {
     private int topUpAmount = 0;
     private User user = null;
 
+
+    private MutableLiveData<Event<TopUp>> selectedTopUpToView = new MutableLiveData<>();
+
+
     private static final String TAG = "TopUpFragmentViewModel";
 
-    public void requestTopUpHistory() {
-        topUpRepository.requestTopUpHistory();
 
-
-    }
 
     public void setPaymentOption(String selectedOption) {
         this.selectedPaymentOption = selectedOption;
@@ -55,17 +55,13 @@ public class TopUpFragmentViewModel extends ViewModel {
 
     }
 
-    public LiveData<Event<TopUp>> getAddedTopUp() {
-        return topUpRepository.getTopUpLiveData();
-    }
+
 
     public LiveData<Event<Boolean>> getAddedTopUpStatus() {
-        return topUpRepository.getAddTopUpStatusLiveData();
+        return topUpRepository.getAddTopUpSuccessLiveData();
     }
 
-    public LiveData<List<TopUp>> getTopUpHistory() {
-        return topUpRepository.getTopUpHistory();
 
-    }
+
 
 }

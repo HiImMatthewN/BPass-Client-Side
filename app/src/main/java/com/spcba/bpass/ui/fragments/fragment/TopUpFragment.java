@@ -163,7 +163,7 @@ public class TopUpFragment extends Fragment {
         topUpFragmentViewModel.getAddedTopUpStatus().observe(getViewLifecycleOwner(), addedEvent -> {
             if (addedEvent.isHandled()) return;
             if (addedEvent.getContentIfNotHandled())
-                navController.navigate(R.id.action_topUpFragment_to_topUpDetailsFragment);
+                navController.navigate(R.id.action_topUpFragment_to_topUpOverviewFragment);
 
             isVerifying(false);
 

@@ -13,30 +13,16 @@
         android:layout_marginBottom="72dp"
         android:padding="8dp">
 
-        <TextView
-            android:id="@+id/backTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/main_font_bold"
-            android:text="Ticket Details"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="16dp"
-            android:textStyle="bold"
-            android:gravity="center"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:drawableStartCompat="@drawable/ic_back" />
 
         <ir.beigirad.zigzagview.ZigzagView
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="9:16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/backTv"
+            app:layout_constraintTop_toTopOf="parent"
             app:zigzagElevation="8dp"
             app:zigzagHeight="8dp"
             app:zigzagShadowAlpha="0.9"
@@ -46,7 +32,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="16dp">
+                android:padding="8dp">
 
                 <TextView
                     android:id="@+id/paymentCreatedLabel"
@@ -248,7 +234,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/qrCodeMessage" />
 
-
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/doneBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="32dp"
+                    android:background="@drawable/circular_button_bg_pink"
+                    android:fontFamily="@font/main_font"
+                    android:text="Done"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/qrCodeIv"
+                    app:layout_constraintWidth_percent=".95" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline8"

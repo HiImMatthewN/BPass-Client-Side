@@ -67,9 +67,6 @@ public class TicketRepository {
 
 
                 });
-
-
-
     }
     public LiveData<List<Ticket>> getTickets() {
         return userTickets;

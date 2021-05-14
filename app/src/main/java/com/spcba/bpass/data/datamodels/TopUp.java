@@ -5,7 +5,8 @@ import com.google.firebase.firestore.PropertyName;
 import java.util.Date;
 
 public class TopUp {
-    private int amount;
+
+   private int amount;
     private String paymentMethod;
     private String refNumber;
     @PropertyName("paid")
@@ -23,7 +24,6 @@ public class TopUp {
         this.isPaid = isPaid;
         this.dateCreated = dateCreated;
     }
-
     public int getAmount() {
         return amount;
     }

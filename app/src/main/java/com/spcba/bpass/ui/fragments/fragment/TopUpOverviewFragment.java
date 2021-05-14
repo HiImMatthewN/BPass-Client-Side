@@ -2,10 +2,10 @@ package com.spcba.bpass.ui.fragments.fragment;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,16 +23,15 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.spcba.bpass.data.datamodels.TopUp;
-import com.spcba.bpass.databinding.FragmentTopupDetailsBinding;
-import com.spcba.bpass.ui.fragments.dialog.ReceiptScannedDialog;
+import com.spcba.bpass.databinding.FragmentTopupOverviewBinding;
 import com.spcba.bpass.ui.viewmodels.LobbyActivityViewModel;
 import com.spcba.bpass.ui.viewmodels.TopUpDetailsViewModel;
 
 import static android.graphics.Color.BLACK;
 import static android.graphics.Color.WHITE;
 
-public class TopUpDetailsFragment extends Fragment {
-    private FragmentTopupDetailsBinding binder;
+public class TopUpOverviewFragment extends Fragment {
+    private FragmentTopupOverviewBinding binder;
     private TextView amountToBePaid;
     private TextView fee;
     private TextView mobileNumber;
@@ -40,21 +39,19 @@ public class TopUpDetailsFragment extends Fragment {
     private TextView referenceNumber;
     private TextView date;
     private ImageView qrCode;
-    private TextView backTv;
+    private Button doneBtn;
 
     private LobbyActivityViewModel viewModel;
     private TopUpDetailsViewModel topUpDetailsViewModel;
 
 
     private NavController navController;
-
     public static final String RECEIPT_REQ = "Receipt";
     private static final String TAG = "TopUpDetailsFragment";
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binder = FragmentTopupDetailsBinding.inflate(inflater, container, false);
+        binder = FragmentTopupOverviewBinding.inflate(inflater, container, false);
         return binder.getRoot();
     }
 
@@ -71,10 +68,10 @@ public class TopUpDetailsFragment extends Fragment {
         referenceNumber = binder.refNumTv;
         date = binder.dateCreatedTv;
         qrCode = binder.qrCodeIv;
-        backTv = binder.backTv;
+        doneBtn = binder.doneBtn;
 
 
-        backTv.setOnClickListener(btn -> {
+        doneBtn.setOnClickListener(btn->{
             navController.popBackStack();
         });
 
@@ -82,40 +79,25 @@ public class TopUpDetailsFragment extends Fragment {
             mobileNumber.setText(user.getMobileNumber());
 
         });
-        topUpDetailsViewModel.getSelectedTopUpToView().observe(getViewLifecycleOwner(), selectedTopUpEvent -> {
-            if (selectedTopUpEvent.isHandled()) return;
-            TopUp top = selectedTopUpEvent.getContentIfNotHandled();
-            Log.d(TAG, "Selected Top Up  Amount " + top.getAmount());
-            Log.d(TAG, "Selected Top Up  Payment Method " + top.getPaymentMethod());
-            Log.d(TAG, "Selected Top Up  Ref Num " + top.getRefNumber());
-            Log.d(TAG, "Selected Top Up  Date " + top.getDateCreated());
-
-            amountToBePaid.setText("₱" + top.getAmount());
-            referenceNumber.setText("Ref.No. " + top.getRefNumber());
+        topUpDetailsViewModel.getAddedTopUp().observe(getViewLifecycleOwner(), addedTopUpEvent -> {
+            if (addedTopUpEvent.isHandled()) return;
+            TopUp top = addedTopUpEvent.getContentIfNotHandled();
+            amountToBePaid.setText("₱" +top.getAmount());
+            referenceNumber.setText("Ref.No. "+ top.getRefNumber());
             paymentMethod.setText(top.getPaymentMethod());
             date.setText(String.valueOf(top.getDateCreated()));
 
 
             String qrCodeValue = RECEIPT_REQ + "-" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "-" + top.getRefNumber();
+
             Glide.with(requireContext()).asBitmap().load(createQrCodeBitMap(qrCodeValue))
                     .into(qrCode);
 
 
         });
-
-        topUpDetailsViewModel.getTopUpAccepted().observe(getViewLifecycleOwner(),receiptScannedEvent->{
-                        if (receiptScannedEvent.isHandled()) return;
-                        if (receiptScannedEvent.getContentIfNotHandled()){
-                            ReceiptScannedDialog dialog = new ReceiptScannedDialog();
-                            dialog.show(getChildFragmentManager(),"Receipt Scanned");
-                            Log.d(TAG, "Showing Dialog");
-                        }
-
-
-        });
     }
 
-    private Bitmap createQrCodeBitMap(String Value) {
+    private Bitmap createQrCodeBitMap(String Value)  {
         BitMatrix result;
         try {
             result = new MultiFormatWriter().encode(Value,

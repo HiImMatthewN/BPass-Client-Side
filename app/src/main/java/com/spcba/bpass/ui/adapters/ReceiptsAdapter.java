@@ -7,10 +7,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.spcba.bpass.R;
 import com.spcba.bpass.data.datamodels.TopUp;
+import com.spcba.bpass.data.datautils.Event;
 import com.spcba.bpass.databinding.ItemReceiptsBinding;
 
 import java.util.ArrayList;
@@ -18,7 +21,7 @@ import java.util.List;
 
 public class ReceiptsAdapter extends RecyclerView.Adapter<ReceiptsAdapter.ReceiptsViewHolder> {
     private List<TopUp> topUpList = new ArrayList<>();
-
+    private MutableLiveData<Event<TopUp>> selectedTopUpToView = new MutableLiveData<>();
     public ReceiptsAdapter() {
     }
 
@@ -52,10 +55,11 @@ public class ReceiptsAdapter extends RecyclerView.Adapter<ReceiptsAdapter.Receip
                 holder.receiptStatusTv.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(),R.drawable.bg_receipt_pending));
 
             }
+            holder.bind(topUp);
+    }
 
-
-
-
+    public LiveData<Event<TopUp>> getSelectedTopUpToView() {
+        return selectedTopUpToView;
     }
 
     @Override
@@ -76,6 +80,14 @@ public class ReceiptsAdapter extends RecyclerView.Adapter<ReceiptsAdapter.Receip
             amountTv = binder.amountTv;
             receiptStatusTv = binder.receiptStatus;
         }
+        public void bind(TopUp topUp){
+            itemView.setOnClickListener(view->{
+                selectedTopUpToView.setValue(new Event<>(topUp));
+            });
+
+
+        }
     }
+
 
 }
