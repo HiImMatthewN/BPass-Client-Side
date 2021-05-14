@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardCornerRadius="16dp">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="24dp"
+  >
+    <TextView
+        android:id="@+id/paymentAcceptedTv"
+        android:layout_width="0dp"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="24sp"
+        android:text="Your Payment has\nbeen scanned\nThank you! :)"
+        android:fontFamily="@font/main_font_bold"
+
+        android:textColor="@color/pinkDark"
+        />
+
+    <com.airbnb.lottie.LottieAnimationView
+        app:layout_constraintTop_toBottomOf="@id/paymentAcceptedTv"
+        android:layout_marginTop="16dp"
+        android:id="@+id/ticketAcceptedIv"
+        android:layout_width="250dp"
+        android:layout_height="0dp"
+        app:lottie_rawRes="@raw/payment_accepted"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        tools:layout_editor_absoluteY="458dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

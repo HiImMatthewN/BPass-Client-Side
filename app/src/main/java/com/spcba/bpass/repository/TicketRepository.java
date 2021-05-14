@@ -63,16 +63,10 @@ public class TicketRepository {
                                 break;
 
                         }
-
-
-
                     }
 
 
                 });
-
-
-
     }
     public LiveData<List<Ticket>> getTickets() {
         return userTickets;

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:overScrollMode="never"
+   >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/pinkDark"
+        android:layout_marginBottom="72dp"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/backTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/main_font_bold"
+            android:text="Ticket Details"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableStartCompat="@drawable/ic_back" />
+
+        <ir.beigirad.zigzagview.ZigzagView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="9:16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/backTv"
+            app:zigzagElevation="8dp"
+            app:zigzagHeight="8dp"
+            app:zigzagShadowAlpha="0.9"
+            app:zigzagSides="top|bottom">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/paymentCreatedLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/main_font"
+                    android:gravity="center"
+                    android:text="Payment created"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/detailsLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/main_font_bold"
+                    android:gravity="center"
+                    android:text="Details"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/paymentCreatedLabel" />
+
+                <TextView
+                    android:id="@+id/amountToBePaidLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Amount to be Paid"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@id/guideline8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/detailsLabel" />
+
+                <TextView
+                    android:id="@+id/amountToBePaidTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/main_font_bold"
+                    android:text="Amount"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/guideline8"
+                    app:layout_constraintTop_toBottomOf="@id/detailsLabel" />
+
+                <TextView
+                    android:id="@+id/feeLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Fee"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@id/guideline8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/amountToBePaidLabel" />
+
+                <TextView
+                    android:id="@+id/feeTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/main_font_bold"
+                    android:text="Fee Amount"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/guideline8"
+                    app:layout_constraintTop_toBottomOf="@id/amountToBePaidTv" />
+
+                <TextView
+                    android:id="@+id/mobileNumberLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Mobile Number"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@id/guideline8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/feeLabel" />
+
+                <TextView
+                    android:id="@+id/mobileNumberTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/main_font_bold"
+                    android:text="Mobile Number"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/guideline8"
+                    app:layout_constraintTop_toBottomOf="@id/feeTv" />
+
+                <TextView
+                    android:id="@+id/paymentMethodLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Payment Method"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@id/guideline8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mobileNumberLabel" />
+
+                <TextView
+                    android:id="@+id/paymentMethodTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/main_font_bold"
+                    android:text="Payment Method"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/guideline8"
+                    app:layout_constraintTop_toBottomOf="@id/mobileNumberTv" />
+
+                <TextView
+                    android:id="@+id/refNumTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/main_font_bold"
+                    android:gravity="center"
+                    android:text="Reference Number"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/paymentMethodLabel" />
+
+                <TextView
+                    android:id="@+id/dateCreatedTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/main_font"
+                    android:gravity="center"
+                    android:text="Date"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/refNumTv" />
+
+                <LinearLayout
+                    android:id="@+id/qrCodeMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/bg_filled_with_border"
+                    android:orientation="horizontal"
+                    android:padding="8dp"
+                    android:weightSum="5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dateCreatedTv">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_qr_code" />
+
+                    <TextView
+                        android:layout_width="314dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:fontFamily="@font/main_font_bold"
+                        android:gravity="center"
+                        android:text="Show this QR Code upon payment"
+                        android:textColor="@color/appleGreen" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_info" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/qrCodeIv"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="16dp"
+                    app:layout_constraintWidth_percent=".7"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/qrCodeMessage" />
+
+
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent=".5" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ir.beigirad.zigzagview.ZigzagView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

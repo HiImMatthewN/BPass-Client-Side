@@ -14,11 +14,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.chip.Chip;
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.spcba.bpass.R;
 import com.spcba.bpass.data.datamodels.Destination;
 import com.spcba.bpass.data.datautils.ScheduleData;
 import com.spcba.bpass.databinding.FragmentLobbyBinding;
@@ -47,6 +50,8 @@ public class LobbyFragment extends Fragment {
     private ArrayList<Destination> cubaoSchedule = ScheduleData.getCubaoSchedule();
 
     private LobbyActivityViewModel viewModel;
+
+    private NavController navController;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,6 +63,7 @@ public class LobbyFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(LobbyActivityViewModel.class);
+        navController = Navigation.findNavController(view);
         destinationsRv = binder.destinationsRv;
         nameTv = binder.userName;
         balanceTv = binder.balanceTv;
@@ -71,6 +77,10 @@ public class LobbyFragment extends Fragment {
         chipTwo = binder.chipTwo;
         chipThree = binder.chipThree;
 
+
+        balanceTv.setOnClickListener(btn->{
+            navController.navigate(R.id.action_lobbyFragment_to_topUpFragment);
+        });
 
         chipOne.setOnCheckedChangeListener((buttonView, isChecked) -> {
             addMarketMarketSchedule(isChecked);

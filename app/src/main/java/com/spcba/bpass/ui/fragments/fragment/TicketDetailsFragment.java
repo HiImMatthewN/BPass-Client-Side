@@ -41,7 +41,6 @@ public class TicketDetailsFragment extends Fragment {
     private TextView fareTv;
     private NavController navController;
 
-
     private LobbyActivityViewModel viewModel;
     public static final String TICKET_REQ = "Ticket";
 
@@ -63,7 +62,6 @@ public class TicketDetailsFragment extends Fragment {
         startDestination = binder.startDestination;
         endDestination = binder.endDestination;
         fareTv = binder.fareTv;
-
         ticketDetailsTv.setOnClickListener(btn -> {
             navController.popBackStack();
 

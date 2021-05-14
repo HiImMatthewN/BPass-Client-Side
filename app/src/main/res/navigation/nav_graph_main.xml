@@ -1,26 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph_main"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_main"
     app:startDestination="@id/lobbyFragment">
 
     <fragment
         android:id="@+id/lobbyFragment"
         android:name="com.spcba.bpass.ui.fragments.fragment.LobbyFragment"
-        android:label="LobbyFragment" />
+        android:label="LobbyFragment">
+        <action
+            android:id="@+id/action_lobbyFragment_to_topUpFragment"
+            app:destination="@id/topUpFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/transactionHistoryFragment"
         android:name="com.spcba.bpass.ui.fragments.fragment.TicketsFragment"
-        android:label="TransactionHistoryFragment" >
+        android:label="TransactionHistoryFragment">
         <action
+            android:id="@+id/action_transactionHistoryFragment_to_ticketDetailsFragment"
+            app:destination="@id/ticketDetailsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
-            app:popExitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
-            android:id="@+id/action_transactionHistoryFragment_to_ticketDetailsFragment"
-            app:destination="@id/ticketDetailsFragment" />
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/ticketDetailsFragment"
         android:name="com.spcba.bpass.ui.fragments.fragment.TicketDetailsFragment"
         android:label="TicketDetailsFragment" />
+    <fragment
+        android:id="@+id/topUpFragment"
+        android:name="com.spcba.bpass.ui.fragments.fragment.TopUpFragment"
+        android:label="TopUpFragment" >
+        <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            android:id="@+id/action_topUpFragment_to_transactionHistoryFragment2"
+            app:destination="@id/transactionHistoryFragment2" />
+        <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            android:id="@+id/action_topUpFragment_to_topUpOverviewFragment"
+            app:destination="@id/topUpOverviewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/transactionHistoryFragment2"
+        android:name="com.spcba.bpass.ui.fragments.fragment.TransactionHistoryFragment"
+        android:label="TransactionHistoryFragment" >
+        <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            android:id="@+id/action_transactionHistoryFragment2_to_topUpDetailsFragment3"
+            app:destination="@id/topUpDetailsFragment3" />
+    </fragment>
+    <fragment
+        android:id="@+id/topUpOverviewFragment"
+        android:name="com.spcba.bpass.ui.fragments.fragment.TopUpOverviewFragment"
+        android:label="TopUpOverviewFragment" />
+    <fragment
+        android:id="@+id/topUpDetailsFragment3"
+        android:name="com.spcba.bpass.ui.fragments.fragment.TopUpDetailsFragment"
+        android:label="TopUpDetailsFragment" />
 </navigation>

@@ -14,6 +14,7 @@ import com.spcba.bpass.data.datamodels.Ticket;
 import com.spcba.bpass.data.datamodels.User;
 import com.spcba.bpass.helper.LocationHelper;
 import com.spcba.bpass.repository.TicketRepository;
+import com.spcba.bpass.repository.TopUpRepository;
 import com.spcba.bpass.repository.UserRepository;
 
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.List;
 public class LobbyActivityViewModel extends AndroidViewModel {
     private UserRepository userRepository = UserRepository.getInstance();
     private TicketRepository ticketRepository = TicketRepository.getInstance();
+    private TopUpRepository topUpRepository = TopUpRepository.getInstance();
     private LocationHelper locationHelper = LocationHelper.getInstance();
 
     private MutableLiveData<Event<Destination>> selectedDestinationLiveData = new MutableLiveData<>();
@@ -37,7 +39,7 @@ public class LobbyActivityViewModel extends AndroidViewModel {
         userRepository.loadUserData(uid);
         ticketRepository.getUserTickets();
         ticketRepository.addTicketStatusChanged();
-
+        topUpRepository.addReceiptStatusChanged();
 
 
     }
