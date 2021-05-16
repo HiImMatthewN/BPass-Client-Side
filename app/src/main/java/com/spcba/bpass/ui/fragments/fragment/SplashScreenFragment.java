@@ -16,17 +16,19 @@ import androidx.navigation.Navigation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.spcba.bpass.R;
 import com.spcba.bpass.databinding.FragmentSplashScreenBinding;
+import com.spcba.bpass.helper.SharedPrefHelper;
 import com.spcba.bpass.ui.activities.LobbyActivity;
 import com.spcba.bpass.ui.activities.LoginActivity;
 
-public class SplashScreenFragment  extends Fragment {
+public class SplashScreenFragment extends Fragment {
     private FragmentSplashScreenBinding binder;
     private NavController navController;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binder = FragmentSplashScreenBinding.inflate(inflater,container,false);
+        binder = FragmentSplashScreenBinding.inflate(inflater, container, false);
         return binder.getRoot();
     }
 
@@ -36,25 +38,29 @@ public class SplashScreenFragment  extends Fragment {
         navController = Navigation.findNavController(view);
 
 
-        //Todo: Add SharedPrefHelper for one time trigger of OnBoarding
+        new Handler().postDelayed(() -> {
+            if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+                if (SharedPrefHelper.read(SharedPrefHelper.FIRST_TIME_OPEN, true))
+                    navController.navigate(R.id.action_splashScreenFragment_to_onBoardingParentFragment);
+                else
+                    goToLoginActivity();
+            } else {
 
-        new Handler().postDelayed(()->{
-            if (FirebaseAuth.getInstance().getCurrentUser()== null)
-                goToLoginActivity();
-            else
-                navController.navigate(R.id.action_splashScreenFragment_to_onBoardingParentFragment);
-//                goToLobbyActivity();
+                requireActivity().finish();
+                goToLobbyActivity();
+
+            }
 
 
-//            requireActivity().finish();
-        },1500);
+        }, 1500);
     }
 
-    private void goToLoginActivity(){
+    private void goToLoginActivity() {
         Intent loginActivity = new Intent(requireContext(), LoginActivity.class);
         startActivity(loginActivity);
     }
-    private void goToLobbyActivity(){
+
+    private void goToLobbyActivity() {
         Intent lobbyActivity = new Intent(requireContext(), LobbyActivity.class);
         startActivity(lobbyActivity);
     }

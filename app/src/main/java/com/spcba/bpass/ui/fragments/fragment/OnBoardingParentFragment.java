@@ -1,5 +1,6 @@
 package com.spcba.bpass.ui.fragments.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.spcba.bpass.databinding.FragmentOnboardingParentBinding;
+import com.spcba.bpass.helper.SharedPrefHelper;
+import com.spcba.bpass.ui.activities.LoginActivity;
 import com.spcba.bpass.ui.adapters.OnBoardingAdapter;
 
 public class OnBoardingParentFragment extends Fragment {
@@ -57,10 +60,23 @@ public class OnBoardingParentFragment extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-                if (vpAdapter.getCount()-1 == position)
+                if (vpAdapter.getCount()-1 == position){
                     nextTv.setText("Finish");
-                else
+                    nextTv.setOnClickListener(btn->{
+                        SharedPrefHelper.write(SharedPrefHelper.FIRST_TIME_OPEN,false);
+                        requireActivity().finish();
+                        goToLoginActivity();
+                    });
+
+                }
+                else{
                     nextTv.setText("Next");
+                    nextTv.setOnClickListener(btn->{
+                        if (onBoardingVp.getCurrentItem() == vpAdapter.getCount()) return;
+                        onBoardingVp.setCurrentItem(onBoardingVp.getCurrentItem() +1,true);
+
+                    });
+                }
                 if (position ==0)
                     backTv.setVisibility(View.GONE);
                 else
@@ -75,5 +91,9 @@ public class OnBoardingParentFragment extends Fragment {
             }
         });
 
+    }
+    private void goToLoginActivity() {
+        Intent loginActivity = new Intent(requireContext(), LoginActivity.class);
+        startActivity(loginActivity);
     }
 }

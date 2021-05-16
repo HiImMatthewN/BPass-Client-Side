@@ -27,6 +27,7 @@
             android:layout_marginTop="8dp"
             />
     <TextView
+        app:layout_constraintWidth_percent=".75"
         android:id="@+id/onBoardingMessageTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
