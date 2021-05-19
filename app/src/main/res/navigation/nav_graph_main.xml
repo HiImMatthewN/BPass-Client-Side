@@ -71,4 +71,8 @@
         android:id="@+id/topUpDetailsFragment3"
         android:name="com.spcba.bpass.ui.fragments.fragment.TopUpDetailsFragment"
         android:label="TopUpDetailsFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.spcba.bpass.ui.fragments.fragment.ProfileFragment"
+        android:label="ProfileFragment" />
 </navigation>

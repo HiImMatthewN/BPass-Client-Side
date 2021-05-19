@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.spcba.bpass.data.datautils.Event;
 import com.spcba.bpass.data.datamodels.User;
 
@@ -86,8 +87,18 @@ public class UserRepository {
                     userLiveData.postValue(user);
                 }
         });
+    }
+    public void updateProfile(User user){
+
+        db.collection("Users").document(FirebaseAuth.getInstance().getUid())
+                .set(user, SetOptions.merge()).addOnCompleteListener(task -> {
+            Log.d(TAG, "saveUserToDb: Saving User to Db: " + task.isSuccessful());
+            saveUserLiveData.postValue(new Event<>(task.isSuccessful()));
+        });
+
 
     }
+
     public LiveData<Event<Boolean>> getCheckIfNumberAlreadyExists() {
         return mobileNumberLiveData;
     }
