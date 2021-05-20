@@ -8,8 +8,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.spcba.bpass.data.datautils.Event;
 import com.spcba.bpass.data.datamodels.User;
+import com.spcba.bpass.data.datautils.Event;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +21,7 @@ public class UserRepository {
     private MutableLiveData<Event<Boolean>> mobileNumberLiveData = new MutableLiveData<>();
     private MutableLiveData<Event<Boolean>> saveUserLiveData = new MutableLiveData<>();
     private MutableLiveData<User> userLiveData = new MutableLiveData<>();
+    private MutableLiveData<Event<Boolean>> updateProfileStatusLiveData = new MutableLiveData<>();
     private static final String TAG = "FireStoreRepository";
 
     public static UserRepository getInstance() {
@@ -67,6 +68,18 @@ public class UserRepository {
 
 
     }
+    public void updateProfilePic(String profilePicUri){
+        Map<String,Object> data = new HashMap<>();
+        data.put("profilePicUrl",profilePicUri);
+        db.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+        .update(data).addOnCompleteListener(task -> {
+            if (task.isSuccessful())
+                Log.d(TAG, "Updating Profile Pic success");
+            else
+                Log.d(TAG, "Updating profile pic failed: " + task.getException().getMessage());
+        });
+
+    }
     public void saveUserToDb(User user) {
         db.collection("Users").document(FirebaseAuth.getInstance().getUid())
                 .set(user).addOnCompleteListener(task -> {
@@ -86,8 +99,24 @@ public class UserRepository {
                     userLiveData.postValue(user);
                 }
         });
+    }
+    public void updateProfile(User user){
+        Map<String,Object> map = new HashMap<>();
+        map.put("name",user.getName());
+        map.put("age",user.getAge());
+        map.put("gender",user.getGender());
+        map.put("email",user.getEmail());
+        map.put("secondaryMobileNum",user.getSecondaryMobileNum());
+        map.put("address",user.getAddress());
+        db.collection("Users").document(FirebaseAuth.getInstance().getUid())
+                .update(map).addOnCompleteListener(task -> {
+            Log.d(TAG, "saveUserToDb: Saving User to Db: " + task.isSuccessful());
+            updateProfileStatusLiveData.postValue(new Event<>(task.isSuccessful()));
+        });
+
 
     }
+
     public LiveData<Event<Boolean>> getCheckIfNumberAlreadyExists() {
         return mobileNumberLiveData;
     }
@@ -98,5 +127,9 @@ public class UserRepository {
 
     public LiveData<User> getUserLiveData() {
         return userLiveData;
+    }
+
+    public MutableLiveData<Event<Boolean>> getUpdateUserStatus() {
+        return updateProfileStatusLiveData;
     }
 }

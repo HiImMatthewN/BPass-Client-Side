@@ -7,7 +7,10 @@ public class User {
     private String profilePicUrl;
     private String uid;
     private double balance;
-
+    private int age;
+    private String address;
+    private String secondaryMobileNum;
+    private String gender;
     public User() {
     }
 
@@ -67,5 +70,37 @@ public class User {
 
     public String getProfilePicUrl() {
         return profilePicUrl;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getSecondaryMobileNum() {
+        return secondaryMobileNum;
+    }
+
+    public void setSecondaryMobileNum(String secondaryMobileNum) {
+        this.secondaryMobileNum = secondaryMobileNum;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

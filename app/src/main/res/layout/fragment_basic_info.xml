@@ -36,7 +36,7 @@
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent=".5"
-        app:srcCompat="@drawable/profilel_pic_placeholder"
+        app:srcCompat="@drawable/profile_pic_placeholder"
 
         />
 
