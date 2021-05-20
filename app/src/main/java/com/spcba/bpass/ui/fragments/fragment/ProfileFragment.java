@@ -1,13 +1,17 @@
 package com.spcba.bpass.ui.fragments.fragment;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +38,7 @@ public class ProfileFragment extends Fragment {
     private LobbyActivityViewModel viewModel;
     private ProfileViewModel profileViewModel;
     private Button editBtn;
+    private int REQ_IMAGE = 101;
 
     @Nullable
     @Override
@@ -63,33 +68,70 @@ public class ProfileFragment extends Fragment {
         editBtn.setOnClickListener(btn->{
             profileViewModel.enableEdit();
         });
+        profilePicIv.setOnClickListener(iv->{
+            Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(i,REQ_IMAGE);
+        });
+
+
         viewModel.getUser().observe(getViewLifecycleOwner(),user ->{
                 nameEt.setText(user.getName());
                 emailEt.setText(user.getEmail());
                 mobileNumber.setText(user.getMobileNumber());
+                if(user.getAge() !=0)
+                ageEt.setText(String.valueOf(user.getAge()));
+                else
+                    ageEt.setText("");
+
+            genderEt.setText(user.getGender());
+                addressEt.setText(user.getAddress());
+                secondaryMobileNumEt.setText(user.getSecondaryMobileNum());
 
             Glide.with(requireContext()).load(user.getProfilePicUrl()).into(profilePicIv);
         });
 
 
-        //Todo:Let user change profile pic
 
+        profileViewModel.getUpdateProfileStatus().observe(getViewLifecycleOwner(),updateEvent->{
+                    if (updateEvent.isHandled()) return;
+
+                    if (updateEvent.getContentIfNotHandled()){
+                        profileViewModel.loadUser();
+                        Toast.makeText(requireContext(), "Update Success", Toast.LENGTH_SHORT).show();
+
+                    }
+                    else
+                        Toast.makeText(requireContext(), "Update Failed", Toast.LENGTH_SHORT).show();
+
+
+        });
 
 
         profileViewModel.getEnableEditLiveData().observe(getViewLifecycleOwner(),editEvent->{
                     if (editEvent.isHandled()) return;
 
                     if (editEvent.getContentIfNotHandled()){
+                        enableField(true);
+
                         nameEt.requestFocus();
                         nameEt.setSelection(nameEt.getText().toString().length());
                         InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.showSoftInput(nameEt, InputMethodManager.SHOW_IMPLICIT);
-                        editBtn.setText("Save Edit");
-                        enableField(true);
+                        editBtn.setText("Save");
                     }else{
-                        //Todo: Get Values and send to Profile view model
 
+                        String name = nameEt.getText().toString();
+                        String age = ageEt.getText().toString();
+                        String gender = genderEt.getText().toString();
+                        String address = addressEt.getText().toString();
+                        String email = emailEt.getText().toString();
+                        String mobileNum = mobileNumber.getText().toString();
+                        String secondaryMobileNum = secondaryMobileNumEt.getText().toString();
 
+                        profileViewModel.updateProfile(name,Integer.parseInt(age),gender,address
+                                ,email,mobileNum,secondaryMobileNum);
+
+                        editBtn.setText("Edit");
                         enableField(false);
 
                     }
@@ -99,6 +141,7 @@ public class ProfileFragment extends Fragment {
 
     }
     private void enableField(boolean value){
+        nameEt.setEnabled(value);
         nameEt.setCursorVisible(value);
         nameEt.setFocusableInTouchMode(value);
 
@@ -119,8 +162,16 @@ public class ProfileFragment extends Fragment {
 
         secondaryMobileNumEt.setCursorVisible(value);
         secondaryMobileNumEt.setFocusableInTouchMode(value);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ_IMAGE && data != null){
+            Uri selectedImage = data.getData();
+            profileViewModel.updateProfilePic(selectedImage);
+            Glide.with(requireContext()).load(selectedImage).into(profilePicIv);
 
 
-
+        }
     }
 }
