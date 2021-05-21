@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.spcba.bpass.data.datamodels.Destination;
+import com.spcba.bpass.data.datamodels.Trip;
 import com.spcba.bpass.databinding.DialogCheckoutBinding;
 import com.spcba.bpass.ui.viewmodels.CheckoutDialogViewModel;
 import com.spcba.bpass.ui.viewmodels.LobbyActivityViewModel;
@@ -73,14 +73,14 @@ public class CheckoutDialog extends BottomSheetDialogFragment {
         checkoutDialogViewModel.setUserDetail(viewModel.getUser().getValue());
         viewModel.getSelectedDestination().observe(getViewLifecycleOwner(),selectedDestinationEvent ->{
                     if (selectedDestinationEvent.isHandled()) return;
-            Destination destination = selectedDestinationEvent.getContentIfNotHandled();
-            startDestination.setText(destination.getStartDestination());
-            endDestination.setText(destination.getEndDestination());
-            leaveTime.setText(destination.getExpectLeaveTime());
-            arriveTime.setText(destination.getExpectArriveTime());
-            totalPrice.setText("₱" + destination.getFare());
+            Trip trip = selectedDestinationEvent.getContentIfNotHandled();
+            startDestination.setText(trip.getStartDestination());
+            endDestination.setText(trip.getEndDestination());
+            leaveTime.setText(trip.getExpectLeaveTime());
+            arriveTime.setText(trip.getExpectArriveTime());
+            totalPrice.setText("₱" + trip.getFare());
 
-            checkoutDialogViewModel.setDestination(destination);
+            checkoutDialogViewModel.setDestination(trip);
         });
         checkoutDialogViewModel.getTotalAmountLiveData().observe(getViewLifecycleOwner(),onTotalAmountChangeEvent ->{
                         if (onTotalAmountChangeEvent.isHandled()) return;

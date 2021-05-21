@@ -90,7 +90,7 @@
                 android:layout_gravity="bottom"
                 android:fontFamily="@font/main_font"
                 android:padding="16dp"
-                android:text="What's your destination?"
+                android:text="What's your trip?"
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -136,41 +136,68 @@
                 android:clickable="true"
                 tools:text="₱42,069"
                 android:focusable="true" />
-
-            <com.google.android.material.chip.ChipGroup
+            <LinearLayout
+                android:weightSum="3"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:chipSpacing="8dp">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipOne"
-                    style="@style/CustomChipChoice"
+                android:layout_height="wrap_content">
+                <com.google.android.material.chip.ChipGroup
+                    android:layout_weight="3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/main_font"
-                    android:text="Market-Market"
-                    app:chipCornerRadius="8dp" />
+                    app:chipSpacing="8dp">
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipTwo"
-                    style="@style/CustomChipChoice"
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipOne"
+                        style="@style/CustomChipChoice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/main_font"
+                        android:text="Market-Market"
+                        app:chipCornerRadius="8dp" />
 
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipTwo"
+                        style="@style/CustomChipChoice"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/main_font"
+                        android:text="Mega Mall"
+                        app:chipCornerRadius="8dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipThree"
+                        style="@style/CustomChipChoice"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/main_font"
+                        android:text="Cubao"
+                        app:chipCornerRadius="8dp" />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipFour"
+                        style="@style/CustomChipChoice"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/main_font"
+                        android:text="Alabang"
+                        app:chipCornerRadius="8dp" />
+                </com.google.android.material.chip.ChipGroup>
+
+                <ImageButton
+                    android:id="@+id/scheduleBtn"
+                    android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/main_font"
-                    android:text="Mega Mall"
-                    app:chipCornerRadius="8dp" />
+                    app:srcCompat="@drawable/ic_calendar"
+                    android:background="@android:color/transparent"
+                    android:padding="16dp"
+                    />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipThree"
-                    style="@style/CustomChipChoice"
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/main_font"
-                    android:text="Cubao"
-                    app:chipCornerRadius="8dp" />
-            </com.google.android.material.chip.ChipGroup>
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/destinationsRv"

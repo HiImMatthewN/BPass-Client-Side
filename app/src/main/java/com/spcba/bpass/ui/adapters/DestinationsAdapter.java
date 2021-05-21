@@ -10,23 +10,23 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.spcba.bpass.data.datamodels.Trip;
 import com.spcba.bpass.data.datautils.Event;
 import com.spcba.bpass.R;
 import com.spcba.bpass.databinding.ItemDestinationBinding;
-import com.spcba.bpass.data.datamodels.Destination;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DestinationsAdapter extends RecyclerView.Adapter<DestinationsAdapter.DestinationsViewHolder> {
-    private List<Destination> destinations = new ArrayList<>();
-    private MutableLiveData<Event<Destination>> onDestinationSelected = new MutableLiveData<>();
+    private List<Trip> trips = new ArrayList<>();
+    private MutableLiveData<Event<Trip>> onDestinationSelected = new MutableLiveData<>();
     public DestinationsAdapter() {
 
     }
-    public void insertDestinations(List<Destination> destinations){
+    public void insertDestinations(List<Trip> trips){
 
-        this.destinations = destinations;
+        this.trips = trips;
         notifyDataSetChanged();
     }
     @NonNull
@@ -40,22 +40,22 @@ public class DestinationsAdapter extends RecyclerView.Adapter<DestinationsAdapte
 
     @Override
     public void onBindViewHolder(@NonNull DestinationsViewHolder holder, int position) {
-        Destination destination = destinations.get(position);
-        holder.startDestination.setText(destination.getStartDestination());
-        holder.endDestination.setText(destination.getEndDestination());
-        holder.leaveTime.setText(destination.getExpectLeaveTime());
-        holder.arriveTime.setText(destination.getExpectArriveTime());
-        holder.fare.setText("₱"+destination.getFare());
+        Trip trip = trips.get(position);
+        holder.startDestination.setText(trip.getStartDestination());
+        holder.endDestination.setText(trip.getEndDestination());
+        holder.leaveTime.setText(trip.getExpectLeaveTime());
+        holder.arriveTime.setText(trip.getExpectArriveTime());
+        holder.fare.setText("₱"+ trip.getFare());
 
-        holder.bind(destination);
+        holder.bind(trip);
     }
 
     @Override
     public int getItemCount() {
-        return destinations.size();
+        return trips.size();
     }
 
-    public LiveData<Event<Destination>> getDestinationSelected() {
+    public LiveData<Event<Trip>> getDestinationSelected() {
         return onDestinationSelected;
     }
 
@@ -75,9 +75,9 @@ public class DestinationsAdapter extends RecyclerView.Adapter<DestinationsAdapte
             arriveTime = binder.arriveTimeTv;
             fare = binder.fareTv;
         }
-        public void bind(Destination destination){
+        public void bind(Trip trip){
             itemLayout.setOnClickListener(view ->{
-                onDestinationSelected.setValue(new Event<>(destination));
+                onDestinationSelected.setValue(new Event<>(trip));
             });
 
         }

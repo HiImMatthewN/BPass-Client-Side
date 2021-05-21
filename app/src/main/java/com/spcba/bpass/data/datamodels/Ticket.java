@@ -4,16 +4,16 @@ import com.google.firebase.firestore.PropertyName;
 
 public class Ticket {
     private String id;
-    private Destination destination;
+    private Trip trip;
     @PropertyName("used")
     private boolean isUsed;
 
     public Ticket() {
     }
 
-    public Ticket(String id, Destination destination, boolean isUsed) {
+    public Ticket(String id, Trip trip, boolean isUsed) {
         this.id = id;
-        this.destination = destination;
+        this.trip = trip;
         this.isUsed = isUsed;
     }
 
@@ -21,8 +21,8 @@ public class Ticket {
         return id;
     }
 
-    public Destination getDestination() {
-        return destination;
+    public Trip getTrip() {
+        return trip;
     }
     @PropertyName("used")
     public boolean isUsed() {

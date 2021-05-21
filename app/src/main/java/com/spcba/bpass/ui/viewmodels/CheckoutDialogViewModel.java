@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.spcba.bpass.data.datautils.Event;
-import com.spcba.bpass.data.datamodels.Destination;
+import com.spcba.bpass.data.datamodels.Trip;
 import com.spcba.bpass.data.datamodels.Ticket;
 import com.spcba.bpass.data.datamodels.User;
 import com.spcba.bpass.repository.TicketRepository;
@@ -28,12 +28,12 @@ public class CheckoutDialogViewModel extends ViewModel {
     private MutableLiveData<Event<Integer>> totalAmountLiveData = new MutableLiveData<>();
     private MutableLiveData<Event<Boolean>> isBalanceEnough = new MutableLiveData<>();
     private User user;
-    private Destination selectedDestination;
+    private Trip selectedTrip;
 
     private static final String TAG = "CheckoutDialogViewModel";
-    public void setDestination(Destination destination) {
-        this.selectedDestination = destination;
-        this.fare = destination.getFare();
+    public void setDestination(Trip trip) {
+        this.selectedTrip = trip;
+        this.fare = trip.getFare();
         this.totalPrice = fare;
     }
 
@@ -52,15 +52,15 @@ public class CheckoutDialogViewModel extends ViewModel {
             double newBalance = user.getBalance() - totalPrice;
             userRepository.updateNewBalance(newBalance);
             for (int i=1;i<=totalTickets;i++){
-                ticketRepository.addTicket(createTicket(selectedDestination));
+                ticketRepository.addTicket(createTicket(selectedTrip));
             }
 
         }
 
     }
-    public Ticket createTicket(Destination destination){
+    public Ticket createTicket(Trip trip){
         String id = UUID.randomUUID().toString().substring(0,8);
-        return new Ticket(id,destination,false);
+        return new Ticket(id, trip,false);
 
     }
     public void addAmount() {

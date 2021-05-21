@@ -2,12 +2,14 @@ package com.spcba.bpass.ui.fragments.fragment;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,10 +24,11 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.chip.Chip;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.spcba.bpass.R;
-import com.spcba.bpass.data.datamodels.Destination;
+import com.spcba.bpass.data.datamodels.Trip;
 import com.spcba.bpass.data.datautils.ScheduleData;
 import com.spcba.bpass.databinding.FragmentLobbyBinding;
 import com.spcba.bpass.ui.adapters.DestinationsAdapter;
+import com.spcba.bpass.ui.fragments.dialog.CalendarDialog;
 import com.spcba.bpass.ui.fragments.dialog.CheckoutDialog;
 import com.spcba.bpass.ui.viewmodels.LobbyActivityViewModel;
 
@@ -39,15 +42,16 @@ public class LobbyFragment extends Fragment {
     private TextView locationTv;
     private CircularImageView userProfilePic;
     private DestinationsAdapter destinationsAdapter;
+    private ImageButton scheduleBtn;
     private Chip chipOne;
     private Chip chipTwo;
     private Chip chipThree;
-    private ArrayList<Destination> displayedDestinations = new ArrayList<>();
+    private ArrayList<Trip> displayedTrips = new ArrayList<>();
     private static final String TAG = "LobbyFragment";
 
-    private ArrayList<Destination> marketMarketSchedule = ScheduleData.getMarketMarketSched();
-    private ArrayList<Destination> megaMallSchedule = ScheduleData.getMegaMallSched();
-    private ArrayList<Destination> cubaoSchedule = ScheduleData.getCubaoSchedule();
+    private ArrayList<Trip> marketMarketSchedule = ScheduleData.getMarketMarketSched();
+    private ArrayList<Trip> megaMallSchedule = ScheduleData.getMegaMallSched();
+    private ArrayList<Trip> cubaoSchedule = ScheduleData.getCubaoSchedule();
 
     private LobbyActivityViewModel viewModel;
 
@@ -71,7 +75,7 @@ public class LobbyFragment extends Fragment {
         userProfilePic = binder.userProfilePic;
         destinationsAdapter = new DestinationsAdapter();
         destinationsRv.setAdapter(destinationsAdapter);
-
+        scheduleBtn = binder.scheduleBtn;
 
         chipOne = binder.chipOne;
         chipTwo = binder.chipTwo;
@@ -81,29 +85,32 @@ public class LobbyFragment extends Fragment {
         balanceTv.setOnClickListener(btn->{
             navController.navigate(R.id.action_lobbyFragment_to_topUpFragment);
         });
+        scheduleBtn.setOnClickListener(btn->{
 
+            showCalendarDialog();
+        });
         chipOne.setOnCheckedChangeListener((buttonView, isChecked) -> {
             addMarketMarketSchedule(isChecked);
-            destinationsAdapter.insertDestinations(displayedDestinations);
+            destinationsAdapter.insertDestinations(displayedTrips);
         });
         chipTwo.setOnCheckedChangeListener(((buttonView, isChecked) -> {
             addMegMallSchedule(isChecked);
-            destinationsAdapter.insertDestinations(displayedDestinations);
+            destinationsAdapter.insertDestinations(displayedTrips);
 
 
         }));
 
         chipThree.setOnCheckedChangeListener(((buttonView, isChecked) -> {
             addCubaoSchedule(isChecked);
-            destinationsAdapter.insertDestinations(displayedDestinations);
+            destinationsAdapter.insertDestinations(displayedTrips);
         }));
 
         chipOne.setChecked(true);
 
         destinationsAdapter.getDestinationSelected().observe(getViewLifecycleOwner(),onDestinationSelectEvent ->{
                 if (onDestinationSelectEvent.isHandled()) return;
-                Destination destination = onDestinationSelectEvent.getContentIfNotHandled();
-                viewModel.setSelectedDestination(destination);
+                Trip trip = onDestinationSelectEvent.getContentIfNotHandled();
+                viewModel.setSelectedDestination(trip);
                 showCheckoutDialog();
 
         });
@@ -116,10 +123,20 @@ public class LobbyFragment extends Fragment {
             fadeOutView(nameTv);
 
         });
+
+        viewModel.getTripsLiveData().observe(getViewLifecycleOwner(),trips -> {
+
+            for (Trip trip: trips){
+                Log.d(TAG, "Fetched Trip " + trip.getTripSchedule());
+            }
+
+        });
+
         viewModel.getLocationLiveData().observe(getViewLifecycleOwner(),locationUpdates ->{
                     locationTv.setText(locationUpdates);
 
         });
+
 
     }
     private void fadeOutView(View view){
@@ -130,31 +147,35 @@ public class LobbyFragment extends Fragment {
         view.startAnimation(fadeOut);
         view.setVisibility(View.GONE);
     }
+    private void showCalendarDialog(){
+        CalendarDialog dialog = new CalendarDialog();
+        dialog.show(getChildFragmentManager(),"Schedule");
+
+    }
     private void showCheckoutDialog(){
         CheckoutDialog dialog = new CheckoutDialog();
         dialog.show(getChildFragmentManager(),"Checkout");
 
-
     }
     private void addMegMallSchedule(boolean value){
         if (value)
-            displayedDestinations.addAll(megaMallSchedule);
+            displayedTrips.addAll(megaMallSchedule);
         else
-            displayedDestinations.removeAll(megaMallSchedule);
+            displayedTrips.removeAll(megaMallSchedule);
 
     }
     private void addMarketMarketSchedule(boolean value){
         if (value)
-            displayedDestinations.addAll(marketMarketSchedule);
+            displayedTrips.addAll(marketMarketSchedule);
         else
-            displayedDestinations.removeAll(marketMarketSchedule);
+            displayedTrips.removeAll(marketMarketSchedule);
 
     }
     private void addCubaoSchedule(boolean value){
         if (value)
-            displayedDestinations.addAll(cubaoSchedule);
+            displayedTrips.addAll(cubaoSchedule);
         else
-            displayedDestinations.removeAll(cubaoSchedule);
+            displayedTrips.removeAll(cubaoSchedule);
 
     }
 }

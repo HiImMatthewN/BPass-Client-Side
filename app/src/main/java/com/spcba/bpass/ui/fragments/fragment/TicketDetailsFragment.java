@@ -69,9 +69,9 @@ public class TicketDetailsFragment extends Fragment {
         viewModel.getSelectedTicketLiveData().observe(getViewLifecycleOwner(), selectedTicketEvent -> {
             if (selectedTicketEvent.isHandled()) return;
             Ticket ticket = selectedTicketEvent.getContentIfNotHandled();
-            startDestination.setText(ticket.getDestination().getStartDestination());
-            endDestination.setText(ticket.getDestination().getEndDestination());
-            fareTv.setText("₱" + ticket.getDestination().getFare());
+            startDestination.setText(ticket.getTrip().getStartDestination());
+            endDestination.setText(ticket.getTrip().getEndDestination());
+            fareTv.setText("₱" + ticket.getTrip().getFare());
             if (ticket.isUsed()) {
                 availability.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bg_ticket_used));
                 availability.setText("Used");
