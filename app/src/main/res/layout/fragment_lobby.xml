@@ -90,7 +90,7 @@
                 android:layout_gravity="bottom"
                 android:fontFamily="@font/main_font"
                 android:padding="16dp"
-                android:text="What's your trip?"
+                android:text="What's your destination?"
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold" />

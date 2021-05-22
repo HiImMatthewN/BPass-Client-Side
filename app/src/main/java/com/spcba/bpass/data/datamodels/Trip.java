@@ -3,46 +3,52 @@ package com.spcba.bpass.data.datamodels;
 import java.util.Date;
 
 public class Trip {
-    private Date tripSchedule;
-    private String startDestination;
-    private String endDestination;
-    private String expectLeaveTime;
-    private String expectArriveTime;
-    private int fare;
+    private int slotAvailable;
+    private Date schedule;
+    private Destination destination;
+    private String busNumber;
 
     public Trip() {
     }
 
-    public Trip(Date tripSchedule,String startDestination, String endDestination, String expectLeaveTime, String expectArriveTime, int fare) {
-        this.tripSchedule = tripSchedule;
-        this.fare =fare;
-        this.startDestination = startDestination;
-        this.endDestination = endDestination;
-        this.expectLeaveTime = expectLeaveTime;
-        this.expectArriveTime = expectArriveTime;
+    public Trip(int slotAvailable, Date schedule, Destination destination, String busNumber) {
+        this.slotAvailable = slotAvailable;
+        this.schedule = schedule;
+        this.destination = destination;
+        this.busNumber = busNumber;
     }
 
-    public String getStartDestination() {
-        return startDestination;
+    public void setSlotAvailable(int slotAvailable) {
+        this.slotAvailable = slotAvailable;
     }
 
-    public String getEndDestination() {
-        return endDestination;
+    public void setSchedule(Date schedule) {
+        this.schedule = schedule;
     }
 
-    public String getExpectLeaveTime() {
-        return expectLeaveTime;
+    public void setDestination(Destination destination) {
+        this.destination = destination;
     }
 
-    public String getExpectArriveTime() {
-        return expectArriveTime;
+    public void setBusNumber(String busNumber) {
+        this.busNumber = busNumber;
     }
 
-    public int getFare() {
-        return fare;
+    public int getSlotAvailable() {
+        return slotAvailable;
     }
 
-    public Date getTripSchedule() {
-        return tripSchedule;
+    public Date getSchedule() {
+        return schedule;
     }
+
+    public Destination getDestination() {
+        return destination;
+    }
+
+    public String getBusNumber() {
+        return busNumber;
+    }
+
+
 }

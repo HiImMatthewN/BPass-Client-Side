@@ -21,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textSize="24sp"
-        android:text="Your Ticket has\nbeen scanned\nEnjoy your trip! :)"
+        android:text="Your Ticket has\nbeen scanned\nEnjoy your destination! :)"
         android:fontFamily="@font/main_font_bold"
 
         android:textColor="@color/pinkDark"

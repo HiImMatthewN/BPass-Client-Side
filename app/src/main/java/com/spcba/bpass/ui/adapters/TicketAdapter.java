@@ -45,8 +45,8 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketAdap
     @Override
     public void onBindViewHolder(@NonNull TicketAdapterViewHolder holder, int position) {
         Ticket ticket = tickets.get(position);
-        holder.startDestination.setText(ticket.getTrip().getStartDestination());
-        holder.endDestination.setText(ticket.getTrip().getEndDestination());
+        holder.startDestination.setText(ticket.getDestination().getStartDestination());
+        holder.endDestination.setText(ticket.getDestination().getEndDestination());
         if (ticket.isUsed()) {
             holder.availability.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.bg_ticket_used));
             holder.availability.setText("Used");

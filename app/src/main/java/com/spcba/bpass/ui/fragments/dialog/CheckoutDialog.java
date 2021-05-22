@@ -13,10 +13,13 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.spcba.bpass.data.datamodels.Destination;
 import com.spcba.bpass.data.datamodels.Trip;
 import com.spcba.bpass.databinding.DialogCheckoutBinding;
 import com.spcba.bpass.ui.viewmodels.CheckoutDialogViewModel;
 import com.spcba.bpass.ui.viewmodels.LobbyActivityViewModel;
+
+import java.util.Date;
 
 public class CheckoutDialog extends BottomSheetDialogFragment {
     private DialogCheckoutBinding binder;
@@ -25,6 +28,7 @@ public class CheckoutDialog extends BottomSheetDialogFragment {
     private Button buyBtn;
     private TextView startDestination;
     private TextView endDestination;
+    private TextView tripSchedule;
     private TextView leaveTime;
     private TextView arriveTime;
     private TextView totalPrice;
@@ -51,6 +55,8 @@ public class CheckoutDialog extends BottomSheetDialogFragment {
         endDestination = binder.endDestination;
         leaveTime = binder.leaveTimeTv;
         arriveTime = binder.arriveTimeTv;
+        tripSchedule = binder.tripSchedule;
+
         totalPrice = binder.currentPriceAmountTv;
         totalAmount = binder.currentTicketAmountTv;
         addAmountBtn = binder.addTicketAmountBtn;
@@ -71,16 +77,17 @@ public class CheckoutDialog extends BottomSheetDialogFragment {
 
         });
         checkoutDialogViewModel.setUserDetail(viewModel.getUser().getValue());
-        viewModel.getSelectedDestination().observe(getViewLifecycleOwner(),selectedDestinationEvent ->{
+        viewModel.getSelectedTrip().observe(getViewLifecycleOwner(), selectedDestinationEvent ->{
                     if (selectedDestinationEvent.isHandled()) return;
             Trip trip = selectedDestinationEvent.getContentIfNotHandled();
-            startDestination.setText(trip.getStartDestination());
-            endDestination.setText(trip.getEndDestination());
-            leaveTime.setText(trip.getExpectLeaveTime());
-            arriveTime.setText(trip.getExpectArriveTime());
-            totalPrice.setText("₱" + trip.getFare());
-
-            checkoutDialogViewModel.setDestination(trip);
+            Destination destination = trip.getDestination();
+            startDestination.setText(destination.getStartDestination());
+            endDestination.setText(destination.getEndDestination());
+            leaveTime.setText(destination.getExpectLeaveTime());
+            arriveTime.setText(destination.getExpectArriveTime());
+            totalPrice.setText("₱" + destination.getFare());
+            tripSchedule.setText(formatDate(trip.getSchedule()));
+            checkoutDialogViewModel.setTrip(trip);
         });
         checkoutDialogViewModel.getTotalAmountLiveData().observe(getViewLifecycleOwner(),onTotalAmountChangeEvent ->{
                         if (onTotalAmountChangeEvent.isHandled()) return;
@@ -96,7 +103,13 @@ public class CheckoutDialog extends BottomSheetDialogFragment {
     }
 
 
+    private String formatDate(Date date){
+      String stringDate = String.valueOf(date);
 
+      return stringDate.replace(" 00:00:00 GMT+08:00 ",",");
+
+
+    }
 
 
 }

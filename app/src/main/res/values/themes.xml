@@ -17,5 +17,20 @@
         <item name="chipBackgroundColor">@color/chip_state_selector</item>
         <item name="android:textColor">@color/chip_text_selector</item>
     </style>
+    <style name="CalenderViewCustom" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/pinkLight</item>
+        <item name="colorPrimary">@color/pinkLight</item>
+        <item name="android:textColorPrimary">@color/pinkDark</item>
+    </style>
 
+    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/pinkDark</item>
+        <item name="fontFamily">@font/main_font</item>
+    </style>
+
+    <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/pinkDark</item>
+        <item name="fontFamily">@font/main_font</item>
+
+    </style>
 </resources>

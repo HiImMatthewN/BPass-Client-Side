@@ -38,7 +38,7 @@ public class ReceiptScannedDialog extends DialogFragment {
         Window window = getDialog().getWindow();
         window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         ColorDrawable back = new ColorDrawable(Color.TRANSPARENT);
-        InsetDrawable inset = new InsetDrawable(back, 96);
+        InsetDrawable inset = new InsetDrawable(back, 0);
         window.setBackgroundDrawable(inset);
     }
 }

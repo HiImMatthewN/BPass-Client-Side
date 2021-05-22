@@ -2,7 +2,6 @@ package com.spcba.bpass.ui.fragments.fragment;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,14 +24,11 @@ import com.google.android.material.chip.Chip;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.spcba.bpass.R;
 import com.spcba.bpass.data.datamodels.Trip;
-import com.spcba.bpass.data.datautils.ScheduleData;
 import com.spcba.bpass.databinding.FragmentLobbyBinding;
 import com.spcba.bpass.ui.adapters.DestinationsAdapter;
 import com.spcba.bpass.ui.fragments.dialog.CalendarDialog;
 import com.spcba.bpass.ui.fragments.dialog.CheckoutDialog;
 import com.spcba.bpass.ui.viewmodels.LobbyActivityViewModel;
-
-import java.util.ArrayList;
 
 public class LobbyFragment extends Fragment {
     private FragmentLobbyBinding binder;
@@ -46,16 +42,27 @@ public class LobbyFragment extends Fragment {
     private Chip chipOne;
     private Chip chipTwo;
     private Chip chipThree;
-    private ArrayList<Trip> displayedTrips = new ArrayList<>();
+
+
+
+    private static final String ALABANG ="Alabang";
+    private static final String MARKET_MARKET ="Market-Market";
+    private static final String CUBAO ="Cubao";
+    private static final String MEGAMALL ="Megamall";
+
+
     private static final String TAG = "LobbyFragment";
 
-    private ArrayList<Trip> marketMarketSchedule = ScheduleData.getMarketMarketSched();
-    private ArrayList<Trip> megaMallSchedule = ScheduleData.getMegaMallSched();
-    private ArrayList<Trip> cubaoSchedule = ScheduleData.getCubaoSchedule();
 
     private LobbyActivityViewModel viewModel;
 
     private NavController navController;
+    //Todo: Add Slot Available status indicator Green,Yellow Red
+    //Todo: Add date to tickets
+    //Todo: Add Alarm upon buying ticket and dialog for notice
+
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -90,27 +97,24 @@ public class LobbyFragment extends Fragment {
             showCalendarDialog();
         });
         chipOne.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            addMarketMarketSchedule(isChecked);
-            destinationsAdapter.insertDestinations(displayedTrips);
+            viewModel.filter(MARKET_MARKET,isChecked);
+
         });
         chipTwo.setOnCheckedChangeListener(((buttonView, isChecked) -> {
-            addMegMallSchedule(isChecked);
-            destinationsAdapter.insertDestinations(displayedTrips);
-
+            viewModel.filter(MEGAMALL,isChecked);
 
         }));
 
         chipThree.setOnCheckedChangeListener(((buttonView, isChecked) -> {
-            addCubaoSchedule(isChecked);
-            destinationsAdapter.insertDestinations(displayedTrips);
+            viewModel.filter(CUBAO,isChecked);
+
         }));
 
-        chipOne.setChecked(true);
 
-        destinationsAdapter.getDestinationSelected().observe(getViewLifecycleOwner(),onDestinationSelectEvent ->{
-                if (onDestinationSelectEvent.isHandled()) return;
-                Trip trip = onDestinationSelectEvent.getContentIfNotHandled();
-                viewModel.setSelectedDestination(trip);
+        destinationsAdapter.getSelectedTrip().observe(getViewLifecycleOwner(), onTripSelectedEvent ->{
+                if (onTripSelectedEvent.isHandled()) return;
+                Trip destination = onTripSelectedEvent.getContentIfNotHandled();
+                viewModel.setSelectedTrip(destination);
                 showCheckoutDialog();
 
         });
@@ -125,10 +129,8 @@ public class LobbyFragment extends Fragment {
         });
 
         viewModel.getTripsLiveData().observe(getViewLifecycleOwner(),trips -> {
+            destinationsAdapter.insertDestinations(trips);
 
-            for (Trip trip: trips){
-                Log.d(TAG, "Fetched Trip " + trip.getTripSchedule());
-            }
 
         });
 
@@ -157,25 +159,6 @@ public class LobbyFragment extends Fragment {
         dialog.show(getChildFragmentManager(),"Checkout");
 
     }
-    private void addMegMallSchedule(boolean value){
-        if (value)
-            displayedTrips.addAll(megaMallSchedule);
-        else
-            displayedTrips.removeAll(megaMallSchedule);
 
-    }
-    private void addMarketMarketSchedule(boolean value){
-        if (value)
-            displayedTrips.addAll(marketMarketSchedule);
-        else
-            displayedTrips.removeAll(marketMarketSchedule);
 
-    }
-    private void addCubaoSchedule(boolean value){
-        if (value)
-            displayedTrips.addAll(cubaoSchedule);
-        else
-            displayedTrips.removeAll(cubaoSchedule);
-
-    }
 }

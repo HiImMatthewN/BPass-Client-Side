@@ -108,5 +108,18 @@
             app:layout_constraintEnd_toEndOf="@id/endDestinationTv"
             app:layout_constraintStart_toStartOf="@id/endDestinationTv"
             app:layout_constraintTop_toBottomOf="@id/endDestinationTv" />
+
+        <TextView
+            android:fontFamily="@font/main_font_bold"
+            android:id="@+id/slotAvailableTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Slot"
+            android:textSize="16sp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/destinationIcon"
+            app:layout_constraintStart_toStartOf="@id/destinationIcon"
+            app:layout_constraintTop_toBottomOf="@id/destinationIcon" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

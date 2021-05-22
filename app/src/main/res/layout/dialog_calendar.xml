@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="16dp"
+        android:padding="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <CalendarView
+                android:theme="@style/CalenderViewCustom"
+                android:dateTextAppearance="@style/CalenderViewDateCustomText"
+                android:weekDayTextAppearance="@style/CalenderViewWeekCustomText"
+                android:backgroundTint="@color/pinkDark"
+                android:id="@+id/calendarView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/okBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                android:text="Ok"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/main_font_bold"
+                android:background="@drawable/rectangular_button_bg_pink"
+                />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 </FrameLayout>
