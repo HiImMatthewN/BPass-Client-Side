@@ -11,9 +11,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.spcba.bpass.data.datautils.Event;
 import com.spcba.bpass.R;
 import com.spcba.bpass.data.datamodels.Ticket;
+import com.spcba.bpass.data.datautils.Event;
+import com.spcba.bpass.data.datautils.StringUtils;
 import com.spcba.bpass.databinding.ItemTicketBinding;
 
 import java.util.ArrayList;
@@ -47,11 +48,12 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketAdap
         Ticket ticket = tickets.get(position);
         holder.startDestination.setText(ticket.getDestination().getStartDestination());
         holder.endDestination.setText(ticket.getDestination().getEndDestination());
+        holder.scheduleTv.setText(StringUtils.formatDate(ticket.getSchedule()));
         if (ticket.isUsed()) {
-            holder.availability.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.bg_ticket_used));
+            holder.availability.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.bg_tv_lightgray));
             holder.availability.setText("Used");
         } else {
-            holder.availability.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.bg_ticket_available));
+            holder.availability.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.bg_tv_green));
             holder.availability.setText("Available");
         }
         holder.bind(ticket);
@@ -72,19 +74,19 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketAdap
         private TextView startDestination;
         private TextView endDestination;
         private TextView availability;
-
+        private TextView scheduleTv;
         public TicketAdapterViewHolder(@NonNull ItemTicketBinding binder) {
             super(binder.getRoot());
             itemLayout = binder.itemLayout;
             startDestination = binder.startDestinationTv;
             endDestination = binder.endDestinationTv;
             availability = binder.availability;
+            scheduleTv = binder.scheduleTV;
         }
 
         public void bind(Ticket ticket) {
             itemLayout.setOnClickListener(view -> {
                 selectedTicket.postValue(new Event<>(ticket));
-
             });
 
         }

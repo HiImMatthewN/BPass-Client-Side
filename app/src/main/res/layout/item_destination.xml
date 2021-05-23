@@ -21,14 +21,14 @@
         android:layout_height="match_parent">
 
         <ImageButton
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:id="@+id/destinationIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:background="@drawable/bg_circular_destination"
             android:padding="8dp"
             android:src="@drawable/ic_bus_stop"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
         <TextView
@@ -95,7 +95,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/startDestinationTv"
             app:layout_constraintStart_toStartOf="@id/startDestinationTv"
-            app:layout_constraintTop_toBottomOf="@id/startDestinationTv" />
+            app:layout_constraintTop_toTopOf="@id/slotAvailableTv"
+ />
         <TextView
             android:fontFamily="@font/main_font"
             android:id="@+id/arriveTimeTv"
@@ -107,7 +108,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/endDestinationTv"
             app:layout_constraintStart_toStartOf="@id/endDestinationTv"
-            app:layout_constraintTop_toBottomOf="@id/endDestinationTv" />
+            app:layout_constraintTop_toTopOf="@id/slotAvailableTv"
+            />
 
         <TextView
             android:fontFamily="@font/main_font_bold"
@@ -116,6 +118,8 @@
             android:layout_height="wrap_content"
             android:text="Slot"
             android:textSize="16sp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/destinationIcon"

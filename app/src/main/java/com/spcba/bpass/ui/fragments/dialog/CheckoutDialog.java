@@ -15,11 +15,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.spcba.bpass.data.datamodels.Destination;
 import com.spcba.bpass.data.datamodels.Trip;
+import com.spcba.bpass.data.datautils.StringUtils;
 import com.spcba.bpass.databinding.DialogCheckoutBinding;
 import com.spcba.bpass.ui.viewmodels.CheckoutDialogViewModel;
 import com.spcba.bpass.ui.viewmodels.LobbyActivityViewModel;
-
-import java.util.Date;
 
 public class CheckoutDialog extends BottomSheetDialogFragment {
     private DialogCheckoutBinding binder;
@@ -42,7 +41,7 @@ public class CheckoutDialog extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binder = DialogCheckoutBinding.inflate(inflater,container,false);
+        binder = DialogCheckoutBinding.inflate(inflater, container, false);
         return binder.getRoot();
     }
 
@@ -63,51 +62,49 @@ public class CheckoutDialog extends BottomSheetDialogFragment {
         minusAmountBtn = binder.minusTicketAmountBtn;
         buyBtn = binder.buyTicketBtn;
 
-        addAmountBtn.setOnClickListener(btn ->{
+        addAmountBtn.setOnClickListener(btn -> {
             checkoutDialogViewModel.addAmount();
         });
-        minusAmountBtn.setOnClickListener(btn ->{
+        minusAmountBtn.setOnClickListener(btn -> {
             checkoutDialogViewModel.minusAmount();
         });
 
 
-        buyBtn.setOnClickListener(btn ->{
+        buyBtn.setOnClickListener(btn -> {
             checkoutDialogViewModel.checkout();
+            showAddAlarmDialog();
             getDialog().dismiss();
 
         });
         checkoutDialogViewModel.setUserDetail(viewModel.getUser().getValue());
-        viewModel.getSelectedTrip().observe(getViewLifecycleOwner(), selectedDestinationEvent ->{
-                    if (selectedDestinationEvent.isHandled()) return;
+        viewModel.getSelectedTrip().observe(getViewLifecycleOwner(), selectedDestinationEvent -> {
+            if (selectedDestinationEvent.isHandled()) return;
             Trip trip = selectedDestinationEvent.getContentIfNotHandled();
             Destination destination = trip.getDestination();
             startDestination.setText(destination.getStartDestination());
             endDestination.setText(destination.getEndDestination());
-            leaveTime.setText(destination.getExpectLeaveTime());
-            arriveTime.setText(destination.getExpectArriveTime());
+            leaveTime.setText(StringUtils.formatTime(destination.getExpectLeaveTime()));
+            arriveTime.setText(StringUtils.formatTime(destination.getExpectArriveTime()));
             totalPrice.setText("₱" + destination.getFare());
-            tripSchedule.setText(formatDate(trip.getSchedule()));
+            tripSchedule.setText(StringUtils.formatDate(trip.getSchedule()));
             checkoutDialogViewModel.setTrip(trip);
         });
-        checkoutDialogViewModel.getTotalAmountLiveData().observe(getViewLifecycleOwner(),onTotalAmountChangeEvent ->{
-                        if (onTotalAmountChangeEvent.isHandled()) return;
-                        totalAmount.setText(String.valueOf(onTotalAmountChangeEvent.getContentIfNotHandled()));
+        checkoutDialogViewModel.getTotalAmountLiveData().observe(getViewLifecycleOwner(), onTotalAmountChangeEvent -> {
+            if (onTotalAmountChangeEvent.isHandled()) return;
+            totalAmount.setText(String.valueOf(onTotalAmountChangeEvent.getContentIfNotHandled()));
         });
 
-        checkoutDialogViewModel.getTotalPriceLiveData().observe(getViewLifecycleOwner(),totalPriceEvent ->{
-                if (totalPriceEvent.isHandled()) return;
-                totalPrice.setText("₱" +String.valueOf(totalPriceEvent.getContentIfNotHandled()));
+        checkoutDialogViewModel.getTotalPriceLiveData().observe(getViewLifecycleOwner(), totalPriceEvent -> {
+            if (totalPriceEvent.isHandled()) return;
+            totalPrice.setText("₱" + String.valueOf(totalPriceEvent.getContentIfNotHandled()));
 
         });
 
     }
 
-
-    private String formatDate(Date date){
-      String stringDate = String.valueOf(date);
-
-      return stringDate.replace(" 00:00:00 GMT+08:00 ",",");
-
+    private void showAddAlarmDialog() {
+        AddAlarmDialog dialog = new AddAlarmDialog();
+        dialog.show(getParentFragmentManager(),"Add Alarm");
 
     }
 

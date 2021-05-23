@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,7 @@ import com.spcba.bpass.data.datamodels.Destination;
 import com.spcba.bpass.data.datamodels.Trip;
 import com.spcba.bpass.data.datautils.Event;
 import com.spcba.bpass.R;
+import com.spcba.bpass.data.datautils.StringUtils;
 import com.spcba.bpass.databinding.ItemDestinationBinding;
 
 import java.util.ArrayList;
@@ -45,11 +47,24 @@ public class DestinationsAdapter extends RecyclerView.Adapter<DestinationsAdapte
         Destination destination = trip.getDestination();
         holder.startDestination.setText(destination.getStartDestination());
         holder.endDestination.setText(destination.getEndDestination());
-        holder.leaveTime.setText(destination.getExpectLeaveTime());
-        holder.arriveTime.setText(destination.getExpectArriveTime());
+        holder.leaveTime.setText(StringUtils.formatTime(destination.getExpectLeaveTime()));
+        holder.arriveTime.setText(StringUtils.formatTime(destination.getExpectArriveTime()));
         holder.fare.setText("₱"+ destination.getFare());
         holder.slotAvailable.setText(trip.getSlotAvailable()+"/80");
         holder.bind(trip);
+
+        if (trip.getSlotAvailable()>=0)
+            holder.slotAvailable.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(),R.drawable.bg_tv_green));
+        if(trip.getSlotAvailable()>40)
+            holder.slotAvailable.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(),R.drawable.bg_tv_yellow));
+
+        if (trip.getSlotAvailable()>=70){
+            holder.slotAvailable.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(),R.drawable.bg_tv_red));
+            if (trip.getSlotAvailable() ==80)
+            holder.slotAvailable.setText("Full");
+        }
+
+
     }
 
     @Override

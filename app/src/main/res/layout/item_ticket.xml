@@ -74,7 +74,7 @@
 
 
         <TextView
-            android:background="@drawable/bg_ticket_available"
+            android:background="@drawable/bg_tv_green"
             android:fontFamily="@font/main_font"
             android:id="@+id/availability"
             android:layout_width="0dp"
@@ -86,5 +86,15 @@
             app:layout_constraintEnd_toEndOf="@id/endDestinationTv"
             app:layout_constraintStart_toStartOf="@id/endDestinationTv"
             app:layout_constraintTop_toBottomOf="@id/endDestinationTv" />
+        <TextView
+            android:id="@+id/scheduleTV"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/startDestinationTv"
+            app:layout_constraintEnd_toStartOf="@id/availability"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintTop_toBottomOf="@id/ticketIcon"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -1,16 +1,18 @@
 package com.spcba.bpass.data.datamodels;
 
+import java.util.Date;
+
 public class Destination {
     private String startDestination;
     private String endDestination;
-    private String expectLeaveTime;
-    private String expectArriveTime;
+    private Date expectLeaveTime;
+    private Date expectArriveTime;
     private int fare;
 
     public Destination() {
     }
 
-    public Destination( String startDestination, String endDestination, String expectLeaveTime, String expectArriveTime, int fare) {
+    public Destination( String startDestination, String endDestination, Date expectLeaveTime, Date expectArriveTime, int fare) {
         this.fare =fare;
         this.startDestination = startDestination;
         this.endDestination = endDestination;
@@ -26,11 +28,11 @@ public class Destination {
         return endDestination;
     }
 
-    public String getExpectLeaveTime() {
+    public Date getExpectLeaveTime() {
         return expectLeaveTime;
     }
 
-    public String getExpectArriveTime() {
+    public Date getExpectArriveTime() {
         return expectArriveTime;
     }
 
@@ -38,5 +40,11 @@ public class Destination {
         return fare;
     }
 
+    public void setExpectLeaveTime(Date expectLeaveTime) {
+        this.expectLeaveTime = expectLeaveTime;
+    }
 
+    public void setExpectArriveTime(Date expectArriveTime) {
+        this.expectArriveTime = expectArriveTime;
+    }
 }

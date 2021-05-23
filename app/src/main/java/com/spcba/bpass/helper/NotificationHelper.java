@@ -15,6 +15,7 @@ public class NotificationHelper {
     private NotificationManager notificationManager;
     private NotificationCompat.Builder notificationBuilder;
     public static final int NOTIFICATION_ID = 23;
+    public static final int ALARM_NOTIFICATION_ID = 24;
     private String CHANNEL_ID = "BPassChannelId";
 
     public static NotificationHelper getInstance() {
@@ -43,8 +44,8 @@ public class NotificationHelper {
 
     }
 
-    public void updateNotification(Notification notification) {
-        notificationManager.notify(NOTIFICATION_ID, notification);
+    public void updateNotification(Notification notification,int id) {
+        notificationManager.notify(id, notification);
 
     }
     public void dismissNotification(int notifId){

@@ -78,7 +78,7 @@
             android:id="@+id/receiptStatus"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_ticket_available"
+            android:background="@drawable/bg_tv_green"
             android:fontFamily="@font/main_font"
             android:gravity="center"
             android:text="Paid"

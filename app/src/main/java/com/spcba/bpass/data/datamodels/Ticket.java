@@ -10,14 +10,16 @@ public class Ticket {
     @PropertyName("used")
     private boolean isUsed;
     private Date schedule;
+    private String busNumber;
     public Ticket() {
     }
 
-    public Ticket(String id, Destination destination, boolean isUsed,Date schedule) {
+    public Ticket(String id, Destination destination, boolean isUsed,Date schedule,String busNumber) {
         this.id = id;
         this.destination = destination;
         this.isUsed = isUsed;
         this.schedule = schedule;
+        this.busNumber = busNumber;
     }
 
     public String getId() {
@@ -38,5 +40,9 @@ public class Ticket {
 
     public void setSchedule(Date schedule) {
         this.schedule = schedule;
+    }
+
+    public String getBusNumber() {
+        return busNumber;
     }
 }

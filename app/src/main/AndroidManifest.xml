@@ -34,6 +34,8 @@
         </activity>
 
         <receiver android:name=".ui.recievers.GeoFenceListener" />
+        <receiver android:name=".ui.recievers.AlarmReceiver" />
+
         <service android:name=".ui.service.GeoFenceService" android:exported="true" />
     </application>
 

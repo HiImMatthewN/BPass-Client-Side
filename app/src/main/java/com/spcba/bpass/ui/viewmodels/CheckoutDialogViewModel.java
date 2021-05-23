@@ -64,7 +64,7 @@ public class CheckoutDialogViewModel extends ViewModel {
     }
     public Ticket createTicket(Trip trip){
         String id = UUID.randomUUID().toString().substring(0,8);
-        return new Ticket(id, trip.getDestination(),false,trip.getSchedule());
+        return new Ticket(id, trip.getDestination(),false,trip.getSchedule(),trip.getBusNumber());
 
     }
     public void addAmount() {
