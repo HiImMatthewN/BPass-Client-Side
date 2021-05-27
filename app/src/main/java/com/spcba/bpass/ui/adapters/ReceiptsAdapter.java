@@ -52,7 +52,7 @@ public class ReceiptsAdapter extends RecyclerView.Adapter<ReceiptsAdapter.Receip
                 holder.receiptStatusTv.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(),R.drawable.bg_receipt_paid));
             }else{
                 holder.receiptStatusTv.setText("Pending");
-                holder.receiptStatusTv.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(),R.drawable.bg_receipt_pending));
+                holder.receiptStatusTv.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(),R.drawable.bg_tv_yellow));
 
             }
             holder.bind(topUp);

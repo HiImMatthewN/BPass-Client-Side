@@ -33,14 +33,14 @@ public class GeoFenceListener extends BroadcastReceiver {
             case Geofence.GEOFENCE_TRANSITION_ENTER:
                 for (Geofence geofence : triggeringGeofences) {
                     notificationHelper.updateNotification(notificationHelper.createNotification("You have entered a destination",
-                            "Current Destination " + geofence.getRequestId()));
+                            "Current Destination " + geofence.getRequestId()),NotificationHelper.NOTIFICATION_ID);
                 }
 
                 break;
             case Geofence.GEOFENCE_TRANSITION_EXIT:
                 for (Geofence geofence : triggeringGeofences) {
                     notificationHelper.updateNotification(notificationHelper.createNotification("You have exited a destination",
-                            "Current Destination " + geofence.getRequestId()));
+                            "Current Destination " + geofence.getRequestId()),NotificationHelper.NOTIFICATION_ID);
                 }
                 break;
 

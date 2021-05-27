@@ -6,7 +6,8 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -34,6 +35,8 @@
         </activity>
 
         <receiver android:name=".ui.recievers.GeoFenceListener" />
+        <receiver android:name=".ui.recievers.AlarmReceiver" />
+
         <service android:name=".ui.service.GeoFenceService" android:exported="true" />
     </application>
 

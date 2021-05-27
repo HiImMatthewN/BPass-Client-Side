@@ -6,19 +6,22 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.spcba.bpass.data.datautils.Event;
 import com.spcba.bpass.data.datamodels.Destination;
 import com.spcba.bpass.data.datamodels.Ticket;
+import com.spcba.bpass.data.datamodels.Trip;
 import com.spcba.bpass.data.datamodels.User;
+import com.spcba.bpass.data.datautils.Event;
 import com.spcba.bpass.repository.TicketRepository;
+import com.spcba.bpass.repository.TripRepository;
 import com.spcba.bpass.repository.UserRepository;
 
+import java.util.Date;
 import java.util.UUID;
 
 public class CheckoutDialogViewModel extends ViewModel {
     private UserRepository userRepository = UserRepository.getInstance();
     private TicketRepository ticketRepository = TicketRepository.getInstance();
-
+    private TripRepository tripRepository = TripRepository.getInstance();
 
 
     private int totalTickets = 1;
@@ -27,14 +30,21 @@ public class CheckoutDialogViewModel extends ViewModel {
     private MutableLiveData<Event<Integer>> totalPriceLiveData = new MutableLiveData<>();
     private MutableLiveData<Event<Integer>> totalAmountLiveData = new MutableLiveData<>();
     private MutableLiveData<Event<Boolean>> isBalanceEnough = new MutableLiveData<>();
+    private MutableLiveData<Event<Date>> reminderAlarmDateLiveData = new MutableLiveData<>();
+
     private User user;
-    private Destination selectedDestination;
+    private Trip selectedTrip;
 
     private static final String TAG = "CheckoutDialogViewModel";
-    public void setDestination(Destination destination) {
-        this.selectedDestination = destination;
+    public void setTrip(Trip trip) {
+
+        this.selectedTrip = trip;
+        Destination destination = trip.getDestination();
         this.fare = destination.getFare();
         this.totalPrice = fare;
+        reminderAlarmDateLiveData.postValue(new Event<>(trip.getDestination().getExpectLeaveTime()));
+
+
     }
 
 
@@ -42,7 +52,12 @@ public class CheckoutDialogViewModel extends ViewModel {
         this.user = user;
 
     }
+    public void checkIfBalanceIsEnough(){
 
+        isBalanceEnough.setValue(new Event<>(user.getBalance()>=totalPrice));
+
+
+    }
     public void checkout() {
         if ( totalPrice > user.getBalance()){
             isBalanceEnough.setValue(new Event<>(false));
@@ -52,15 +67,15 @@ public class CheckoutDialogViewModel extends ViewModel {
             double newBalance = user.getBalance() - totalPrice;
             userRepository.updateNewBalance(newBalance);
             for (int i=1;i<=totalTickets;i++){
-                ticketRepository.addTicket(createTicket(selectedDestination));
+                ticketRepository.addTicket(createTicket(selectedTrip));
             }
-
+            tripRepository.deductSeat(selectedTrip.getBusNumber(),totalTickets);
         }
 
     }
-    public Ticket createTicket(Destination destination){
+    public Ticket createTicket(Trip trip){
         String id = UUID.randomUUID().toString().substring(0,8);
-        return new Ticket(id,destination,false);
+        return new Ticket(id, trip.getDestination(),false,trip.getSchedule(),trip.getBusNumber());
 
     }
     public void addAmount() {
@@ -89,4 +104,11 @@ public class CheckoutDialogViewModel extends ViewModel {
         return totalAmountLiveData;
     }
 
+    public LiveData<Event<Date>> getReminderAlarmDate() {
+        return reminderAlarmDateLiveData;
+    }
+
+    public LiveData<Event<Boolean>> getIsBalanceEnough() {
+        return isBalanceEnough;
+    }
 }

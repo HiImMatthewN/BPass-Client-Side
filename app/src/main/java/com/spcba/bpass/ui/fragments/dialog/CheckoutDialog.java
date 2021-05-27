@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +15,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.spcba.bpass.data.datamodels.Destination;
+import com.spcba.bpass.data.datamodels.Trip;
+import com.spcba.bpass.data.datautils.StringUtils;
 import com.spcba.bpass.databinding.DialogCheckoutBinding;
 import com.spcba.bpass.ui.viewmodels.CheckoutDialogViewModel;
 import com.spcba.bpass.ui.viewmodels.LobbyActivityViewModel;
@@ -25,6 +28,7 @@ public class CheckoutDialog extends BottomSheetDialogFragment {
     private Button buyBtn;
     private TextView startDestination;
     private TextView endDestination;
+    private TextView tripSchedule;
     private TextView leaveTime;
     private TextView arriveTime;
     private TextView totalPrice;
@@ -38,7 +42,7 @@ public class CheckoutDialog extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binder = DialogCheckoutBinding.inflate(inflater,container,false);
+        binder = DialogCheckoutBinding.inflate(inflater, container, false);
         return binder.getRoot();
     }
 
@@ -46,57 +50,73 @@ public class CheckoutDialog extends BottomSheetDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(LobbyActivityViewModel.class);
-        checkoutDialogViewModel = new ViewModelProvider(this).get(CheckoutDialogViewModel.class);
+        checkoutDialogViewModel = new ViewModelProvider(requireActivity()).get(CheckoutDialogViewModel.class);
         startDestination = binder.startDestination;
         endDestination = binder.endDestination;
         leaveTime = binder.leaveTimeTv;
         arriveTime = binder.arriveTimeTv;
+        tripSchedule = binder.tripSchedule;
+
         totalPrice = binder.currentPriceAmountTv;
         totalAmount = binder.currentTicketAmountTv;
         addAmountBtn = binder.addTicketAmountBtn;
         minusAmountBtn = binder.minusTicketAmountBtn;
         buyBtn = binder.buyTicketBtn;
 
-        addAmountBtn.setOnClickListener(btn ->{
+        addAmountBtn.setOnClickListener(btn -> {
             checkoutDialogViewModel.addAmount();
         });
-        minusAmountBtn.setOnClickListener(btn ->{
+        minusAmountBtn.setOnClickListener(btn -> {
             checkoutDialogViewModel.minusAmount();
         });
 
 
-        buyBtn.setOnClickListener(btn ->{
-            checkoutDialogViewModel.checkout();
-            getDialog().dismiss();
+        buyBtn.setOnClickListener(btn -> {
+          checkoutDialogViewModel.checkIfBalanceIsEnough();
 
         });
         checkoutDialogViewModel.setUserDetail(viewModel.getUser().getValue());
-        viewModel.getSelectedDestination().observe(getViewLifecycleOwner(),selectedDestinationEvent ->{
-                    if (selectedDestinationEvent.isHandled()) return;
-            Destination destination = selectedDestinationEvent.getContentIfNotHandled();
+        viewModel.getSelectedTrip().observe(getViewLifecycleOwner(), selectedDestinationEvent -> {
+            if (selectedDestinationEvent.isHandled()) return;
+            Trip trip = selectedDestinationEvent.getContentIfNotHandled();
+            Destination destination = trip.getDestination();
             startDestination.setText(destination.getStartDestination());
             endDestination.setText(destination.getEndDestination());
-            leaveTime.setText(destination.getExpectLeaveTime());
-            arriveTime.setText(destination.getExpectArriveTime());
+            leaveTime.setText(StringUtils.formatTime(destination.getExpectLeaveTime()));
+            arriveTime.setText(StringUtils.formatTime(destination.getExpectArriveTime()));
             totalPrice.setText("₱" + destination.getFare());
-
-            checkoutDialogViewModel.setDestination(destination);
+            tripSchedule.setText(StringUtils.formatDate(trip.getSchedule()));
+            checkoutDialogViewModel.setTrip(trip);
         });
-        checkoutDialogViewModel.getTotalAmountLiveData().observe(getViewLifecycleOwner(),onTotalAmountChangeEvent ->{
-                        if (onTotalAmountChangeEvent.isHandled()) return;
-                        totalAmount.setText(String.valueOf(onTotalAmountChangeEvent.getContentIfNotHandled()));
+        checkoutDialogViewModel.getTotalAmountLiveData().observe(getViewLifecycleOwner(), onTotalAmountChangeEvent -> {
+            if (onTotalAmountChangeEvent.isHandled()) return;
+            totalAmount.setText(String.valueOf(onTotalAmountChangeEvent.getContentIfNotHandled()));
         });
 
-        checkoutDialogViewModel.getTotalPriceLiveData().observe(getViewLifecycleOwner(),totalPriceEvent ->{
-                if (totalPriceEvent.isHandled()) return;
-                totalPrice.setText("₱" +String.valueOf(totalPriceEvent.getContentIfNotHandled()));
+        checkoutDialogViewModel.getTotalPriceLiveData().observe(getViewLifecycleOwner(), totalPriceEvent -> {
+            if (totalPriceEvent.isHandled()) return;
+            totalPrice.setText("₱" + String.valueOf(totalPriceEvent.getContentIfNotHandled()));
+
+        });
+        checkoutDialogViewModel.getIsBalanceEnough().observe(getViewLifecycleOwner(),checkBalanceEvent->{
+                    if (checkBalanceEvent.isHandled()) return;
+                    if (checkBalanceEvent.getContentIfNotHandled()){
+                        checkoutDialogViewModel.checkout();
+                        showAddAlarmDialog();
+                        getDialog().dismiss();
+                    }else
+                        Toast.makeText(requireContext(), "Balance is not sufficient", Toast.LENGTH_SHORT).show();
+
 
         });
 
     }
 
+    private void showAddAlarmDialog() {
+        AddAlarmDialog dialog = new AddAlarmDialog();
+        dialog.show(getParentFragmentManager(),"Add Alarm");
 
-
+    }
 
 
 }

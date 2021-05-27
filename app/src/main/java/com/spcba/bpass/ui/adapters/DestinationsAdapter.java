@@ -6,27 +6,30 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.spcba.bpass.data.datamodels.Destination;
+import com.spcba.bpass.data.datamodels.Trip;
 import com.spcba.bpass.data.datautils.Event;
 import com.spcba.bpass.R;
+import com.spcba.bpass.data.datautils.StringUtils;
 import com.spcba.bpass.databinding.ItemDestinationBinding;
-import com.spcba.bpass.data.datamodels.Destination;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DestinationsAdapter extends RecyclerView.Adapter<DestinationsAdapter.DestinationsViewHolder> {
-    private List<Destination> destinations = new ArrayList<>();
-    private MutableLiveData<Event<Destination>> onDestinationSelected = new MutableLiveData<>();
+    private List<Trip> trips = new ArrayList<>();
+    private MutableLiveData<Event<Trip>> onTripSelected = new MutableLiveData<>();
     public DestinationsAdapter() {
 
     }
-    public void insertDestinations(List<Destination> destinations){
+    public void insertDestinations(List<Trip> trips){
 
-        this.destinations = destinations;
+        this.trips = trips;
         notifyDataSetChanged();
     }
     @NonNull
@@ -40,23 +43,37 @@ public class DestinationsAdapter extends RecyclerView.Adapter<DestinationsAdapte
 
     @Override
     public void onBindViewHolder(@NonNull DestinationsViewHolder holder, int position) {
-        Destination destination = destinations.get(position);
+        Trip trip = trips.get(position);
+        Destination destination = trip.getDestination();
         holder.startDestination.setText(destination.getStartDestination());
         holder.endDestination.setText(destination.getEndDestination());
-        holder.leaveTime.setText(destination.getExpectLeaveTime());
-        holder.arriveTime.setText(destination.getExpectArriveTime());
-        holder.fare.setText("₱"+destination.getFare());
+        holder.leaveTime.setText(StringUtils.formatTime(destination.getExpectLeaveTime()));
+        holder.arriveTime.setText(StringUtils.formatTime(destination.getExpectArriveTime()));
+        holder.fare.setText("₱"+ destination.getFare());
+        holder.slotAvailable.setText(trip.getSlotAvailable()+"/80");
+        holder.bind(trip);
 
-        holder.bind(destination);
+        if (trip.getSlotAvailable()>=0)
+            holder.slotAvailable.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(),R.drawable.bg_tv_green));
+        if(trip.getSlotAvailable()>40)
+            holder.slotAvailable.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(),R.drawable.bg_tv_yellow));
+
+        if (trip.getSlotAvailable()>=70){
+            holder.slotAvailable.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(),R.drawable.bg_tv_red));
+            if (trip.getSlotAvailable() ==80)
+            holder.slotAvailable.setText("Full");
+        }
+
+
     }
 
     @Override
     public int getItemCount() {
-        return destinations.size();
+        return trips.size();
     }
 
-    public LiveData<Event<Destination>> getDestinationSelected() {
-        return onDestinationSelected;
+    public LiveData<Event<Trip>> getSelectedTrip() {
+        return onTripSelected;
     }
 
     class DestinationsViewHolder extends RecyclerView.ViewHolder{
@@ -66,6 +83,7 @@ public class DestinationsAdapter extends RecyclerView.Adapter<DestinationsAdapte
         private TextView leaveTime;
         private TextView arriveTime;
         private TextView fare;
+        private TextView slotAvailable;
         public DestinationsViewHolder(@NonNull ItemDestinationBinding binder) {
             super(binder.getRoot());
             itemLayout = binder.itemLayout;
@@ -74,10 +92,11 @@ public class DestinationsAdapter extends RecyclerView.Adapter<DestinationsAdapte
             leaveTime = binder.leaveTimeTv;
             arriveTime = binder.arriveTimeTv;
             fare = binder.fareTv;
+            slotAvailable = binder.slotAvailableTv;
         }
-        public void bind(Destination destination){
+        public void bind(Trip trip){
             itemLayout.setOnClickListener(view ->{
-                onDestinationSelected.setValue(new Event<>(destination));
+                onTripSelected.setValue(new Event<>(trip));
             });
 
         }

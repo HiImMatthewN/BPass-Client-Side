@@ -24,6 +24,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.spcba.bpass.R;
 import com.spcba.bpass.data.datamodels.Ticket;
+import com.spcba.bpass.data.datautils.StringUtils;
 import com.spcba.bpass.databinding.FargmentTicketDetailsBinding;
 import com.spcba.bpass.ui.fragments.dialog.TicketScannedDialog;
 import com.spcba.bpass.ui.viewmodels.LobbyActivityViewModel;
@@ -38,6 +39,9 @@ public class TicketDetailsFragment extends Fragment {
     private TextView startDestination;
     private TextView endDestination;
     private TextView availability;
+    private TextView busNumberTv;
+    private TextView departureTimeTv;
+    private TextView arriveTimeTv;
     private TextView fareTv;
     private NavController navController;
 
@@ -61,6 +65,9 @@ public class TicketDetailsFragment extends Fragment {
         availability = binder.availability;
         startDestination = binder.startDestination;
         endDestination = binder.endDestination;
+        busNumberTv = binder.busNumberTv;
+        departureTimeTv = binder.departureTimeTv;
+        arriveTimeTv = binder.arriveTimeTv;
         fareTv = binder.fareTv;
         ticketDetailsTv.setOnClickListener(btn -> {
             navController.popBackStack();
@@ -71,12 +78,15 @@ public class TicketDetailsFragment extends Fragment {
             Ticket ticket = selectedTicketEvent.getContentIfNotHandled();
             startDestination.setText(ticket.getDestination().getStartDestination());
             endDestination.setText(ticket.getDestination().getEndDestination());
+            busNumberTv.setText(ticket.getBusNumber());
             fareTv.setText("₱" + ticket.getDestination().getFare());
+            arriveTimeTv.setText(StringUtils.formatTime(ticket.getDestination().getExpectArriveTime()));
+            departureTimeTv.setText(StringUtils.formatTime(ticket.getDestination().getExpectLeaveTime()));
             if (ticket.isUsed()) {
-                availability.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bg_ticket_used));
+                availability.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bg_tv_lightgray));
                 availability.setText("Used");
             } else {
-                availability.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bg_ticket_available));
+                availability.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bg_tv_green));
                 availability.setText("Available");
             }
 
@@ -94,10 +104,10 @@ public class TicketDetailsFragment extends Fragment {
         viewModel.getTicketAccepted().observe(getViewLifecycleOwner(), getAcceptedTicketEvent -> {
             if (getAcceptedTicketEvent.isHandled()) return;
             if (getAcceptedTicketEvent.getContentIfNotHandled() != null) {
-                availability.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bg_ticket_used));
+                availability.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bg_tv_lightgray));
                 availability.setText("Used");
                 TicketScannedDialog dialog = new TicketScannedDialog();
-                dialog.show(getChildFragmentManager(),"Ticket Scanned");
+                dialog.show(getChildFragmentManager(), "Ticket Scanned");
 
             }
 

@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.spcba.bpass.ExceptionHandler;
 import com.spcba.bpass.helper.AppPermissionHelper;
 import com.spcba.bpass.R;
 import com.spcba.bpass.databinding.ActivityMainBinding;
@@ -28,6 +29,7 @@ public class LobbyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler());
         Log.d(TAG, "onCreate: UID  " + FirebaseAuth.getInstance().getCurrentUser().getUid());
         lobbyActivityViewModel = new ViewModelProvider(this).get(LobbyActivityViewModel.class);
         binder = ActivityMainBinding.inflate(getLayoutInflater());
