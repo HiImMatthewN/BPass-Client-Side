@@ -42,10 +42,11 @@ public class LobbyFragment extends Fragment {
     private Chip chipOne;
     private Chip chipTwo;
     private Chip chipThree;
+    private Chip chipFour;
 
 
 
-    private static final String ALABANG ="Alabang";
+    private static final String ALABANG ="Alabang Starmall";
     private static final String MARKET_MARKET ="Market-Market";
     private static final String CUBAO ="Cubao";
     private static final String MEGAMALL ="Megamall";
@@ -57,9 +58,6 @@ public class LobbyFragment extends Fragment {
     private LobbyActivityViewModel viewModel;
 
     private NavController navController;
-    //Todo: Add Slot Available status indicator Green,Yellow Red
-    //Todo: Add date to tickets
-    //Todo: Add Alarm upon buying ticket and dialog for notice
 
 
 
@@ -87,7 +85,7 @@ public class LobbyFragment extends Fragment {
         chipOne = binder.chipOne;
         chipTwo = binder.chipTwo;
         chipThree = binder.chipThree;
-
+        chipFour = binder.chipFour;
 
         balanceTv.setOnClickListener(btn->{
             navController.navigate(R.id.action_lobbyFragment_to_topUpFragment);
@@ -109,7 +107,10 @@ public class LobbyFragment extends Fragment {
             viewModel.filter(CUBAO,isChecked);
 
         }));
+        chipFour.setOnCheckedChangeListener(((buttonView, isChecked) -> {
+            viewModel.filter(ALABANG,isChecked);
 
+        }));
 
         destinationsAdapter.getSelectedTrip().observe(getViewLifecycleOwner(), onTripSelectedEvent ->{
                 if (onTripSelectedEvent.isHandled()) return;

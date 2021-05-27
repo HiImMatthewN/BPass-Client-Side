@@ -40,7 +40,6 @@ public class LobbyActivityViewModel extends AndroidViewModel {
     private List<String> chipsSelected = new ArrayList<>();
     private static final String TAG = "LobbyActivityViewModel";
 
-        //Todo:Fetch Selected Date From Calendar Dialog
     public LobbyActivityViewModel(Application application) {
         super(application);
         if (FirebaseAuth.getInstance().getCurrentUser() == null) return;
@@ -75,13 +74,24 @@ public class LobbyActivityViewModel extends AndroidViewModel {
         List<Trip> trips = tripRepository.getTripsLiveData().getValue();
 
         if (chipsSelected.size() == 0){
+            Observable.fromIterable(trips)
+                    .filter(trip -> trip.getDestination().getExpectLeaveTime().getTime() >= Calendar.getInstance().getTime().getTime()
+                    )
+                    .toList()
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(result ->{
+                        tripsLiveData.postValue(result);
+                    });
+
             tripsLiveData.setValue(trips);
             return;
         }
 
         if (trips == null || trips.size() == 0) return;
          Observable.fromIterable(trips)
-        .filter(trip -> chipsSelected.contains(trip.getDestination().getEndDestination()))
+        .filter(trip -> chipsSelected.contains(trip.getDestination().getEndDestination())
+        && trip.getDestination().getExpectLeaveTime().getTime() >= Calendar.getInstance().getTime().getTime()
+        )
                 .toList()
                 .subscribeOn(Schedulers.io())
                 .subscribe(result ->{
@@ -143,15 +153,27 @@ public class LobbyActivityViewModel extends AndroidViewModel {
     public LiveData<List<Trip>> getTripsLiveData(){
 
         tripRepository.getTripsLiveData().observeForever(trips -> {
-            if (chipsSelected.size() >0)
-            Observable.fromIterable(trips)
-                    .filter(trip -> chipsSelected.contains(trip.getDestination().getEndDestination()))
-                    .toList()
-                    .subscribeOn(Schedulers.io())
-                    .subscribe(result ->{
-                        tripsLiveData.postValue(result);
-                    });
+            if (chipsSelected.size() >0){
+                Observable.fromIterable(trips)
+                        .filter(trip -> chipsSelected.contains(trip.getDestination().getEndDestination())
+                                && trip.getDestination().getExpectLeaveTime().getTime() >= Calendar.getInstance().getTime().getTime())
+                        .toList()
+                        .subscribeOn(Schedulers.io())
+                        .subscribe(result ->{
+                            tripsLiveData.postValue(result);
+                        });
+            } else{
+                Observable.fromIterable(trips)
+                        .filter(trip -> trip.getDestination().getExpectLeaveTime().getTime() >= Calendar.getInstance().getTime().getTime())
+                        .toList()
+                        .subscribeOn(Schedulers.io())
+                        .subscribe(result ->{
+                            tripsLiveData.postValue(result);
+                        });
+
+            }
             tripsLiveData.postValue(trips);
+
 
         });
 

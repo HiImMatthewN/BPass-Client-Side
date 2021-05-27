@@ -23,7 +23,6 @@ public class TripRepository {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private MutableLiveData<List<Trip>> tripsLiveData = new MutableLiveData<>();
-    //Todo: Change Arrive and Departure Time Data Type to Date
     private static final String TAG = "TripRepository";
     public static TripRepository getInstance(){
             if (instance == null)
@@ -34,7 +33,7 @@ public class TripRepository {
 
     public void addSchedule(){
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_MONTH,25);
+        calendar.set(Calendar.DAY_OF_MONTH,31);
         calendar.set(Calendar.HOUR_OF_DAY,0);
         calendar.set(Calendar.MINUTE,0);
         calendar.set(Calendar.SECOND,0);
@@ -42,33 +41,33 @@ public class TripRepository {
         Calendar departureTime = Calendar.getInstance();
         departureTime.setTime(calendar.getTime());
         departureTime.set(Calendar.HOUR_OF_DAY,7);
-        departureTime.set(Calendar.MINUTE,15);
+        departureTime.set(Calendar.MINUTE,0);
 
         Calendar arriveTime = Calendar.getInstance();
         arriveTime.setTime(calendar.getTime());
         arriveTime.set(Calendar.HOUR_OF_DAY,7);
-        arriveTime.set(Calendar.MINUTE,45);
+        arriveTime.set(Calendar.MINUTE,30);
 
 
         Calendar departureTime1 = Calendar.getInstance();
         departureTime1.setTime(calendar.getTime());
         departureTime1.set(Calendar.HOUR_OF_DAY,7);
-        departureTime1.set(Calendar.MINUTE,30);
+        departureTime1.set(Calendar.MINUTE,15);
 
         Calendar arriveTime1 = Calendar.getInstance();
         arriveTime1.setTime(calendar.getTime());
         arriveTime1.set(Calendar.HOUR_OF_DAY,8);
-        arriveTime1.set(Calendar.MINUTE,15);
+        arriveTime1.set(Calendar.MINUTE,0);
 
         Calendar departureTime2 = Calendar.getInstance();
         departureTime2.setTime(calendar.getTime());
         departureTime2.set(Calendar.HOUR_OF_DAY,7);
-        departureTime2.set(Calendar.MINUTE,15);
+        departureTime2.set(Calendar.MINUTE,0);
 
         Calendar arriveTime2 = Calendar.getInstance();
         arriveTime2.setTime(calendar.getTime());
         arriveTime2.set(Calendar.HOUR_OF_DAY,8);
-        arriveTime2.set(Calendar.MINUTE,15);
+        arriveTime2.set(Calendar.MINUTE,0);
 
 
         for (Destination destination : ScheduleData.getMarketMarketSched()){

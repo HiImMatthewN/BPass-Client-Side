@@ -27,9 +27,6 @@ public class CalendarDialog extends DialogFragment {
     private Button okBtn;
     private LobbyActivityViewModel viewModel;
 
-    //Todo: Create Ok Button
-    //Todo: Send selected Date to @LobbyActivityViewModel
-    //Todo:Add CardView as design
 
     @Nullable
     @Override

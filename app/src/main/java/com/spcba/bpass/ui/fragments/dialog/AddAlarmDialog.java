@@ -18,10 +18,12 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.spcba.bpass.data.datautils.StringUtils;
 import com.spcba.bpass.databinding.DialogAddAlarmBinding;
 import com.spcba.bpass.ui.recievers.AlarmReceiver;
+import com.spcba.bpass.ui.viewmodels.CheckoutDialogViewModel;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -32,47 +34,53 @@ public class AddAlarmDialog extends DialogFragment {
     private Button noBtn;
 
     private static final String TAG = "AddAlarmDialog";
+    private CheckoutDialogViewModel checkoutViewModel;
+
     //Todo:Add AddAlarmDialog ViewModel
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binder = DialogAddAlarmBinding.inflate(inflater,container,false);
+        binder = DialogAddAlarmBinding.inflate(inflater, container, false);
         return binder.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        checkoutViewModel = new ViewModelProvider(requireActivity()).get(CheckoutDialogViewModel.class);
         addBtn = binder.addBtn;
         noBtn = binder.noBtn;
 
-        noBtn.setOnClickListener(btn->{
+        noBtn.setOnClickListener(btn -> {
             if (getDialog() == null) return;
             getDialog().dismiss();
         });
-        addBtn.setOnClickListener(btn->{
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY,1);
-            calendar.set(Calendar.MINUTE,22);
-            calendar.set(Calendar.SECOND,0);
-            setAlarm(calendar.getTime());
-            getDialog().dismiss();
+        addBtn.setOnClickListener(btn -> {
+
+            checkoutViewModel.getReminderAlarmDate().observe(getViewLifecycleOwner(), reminderEvent -> {
+                if (reminderEvent.isHandled()) return;
+                setAlarm(reminderEvent.getContentIfNotHandled());
+
+
+            });
+            if (getDialog() != null)
+                getDialog().dismiss();
 
         });
 
     }
 
-    private void setAlarm( Date triggerDate){
+    private void setAlarm(Date triggerDate) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(triggerDate);
-        calendar.add(Calendar.HOUR_OF_DAY,-1);
+        calendar.add(Calendar.HOUR_OF_DAY, -1);
 
 
         AlarmManager alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(requireContext(),AlarmReceiver.class);
-        intent.putExtra("AlarmMessage","You have a trip at " + StringUtils.formatTime(triggerDate));
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(requireContext(),123,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.setAlarmClock(new AlarmManager.AlarmClockInfo(calendar.getTimeInMillis(),pendingIntent),pendingIntent);
+        Intent intent = new Intent(requireContext(), AlarmReceiver.class);
+        intent.putExtra("AlarmMessage", "You have a trip at " + StringUtils.formatTime(triggerDate));
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(requireContext(), 123, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.setAlarmClock(new AlarmManager.AlarmClockInfo(calendar.getTimeInMillis(), pendingIntent), pendingIntent);
 
         Log.d(TAG, "setAlarm: Alarm, will trigger at " + triggerDate);
     }

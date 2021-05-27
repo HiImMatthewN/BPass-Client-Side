@@ -7,14 +7,15 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.spcba.bpass.data.datamodels.Destination;
-import com.spcba.bpass.data.datamodels.Trip;
-import com.spcba.bpass.data.datautils.Event;
 import com.spcba.bpass.data.datamodels.Ticket;
+import com.spcba.bpass.data.datamodels.Trip;
 import com.spcba.bpass.data.datamodels.User;
+import com.spcba.bpass.data.datautils.Event;
 import com.spcba.bpass.repository.TicketRepository;
 import com.spcba.bpass.repository.TripRepository;
 import com.spcba.bpass.repository.UserRepository;
 
+import java.util.Date;
 import java.util.UUID;
 
 public class CheckoutDialogViewModel extends ViewModel {
@@ -29,6 +30,8 @@ public class CheckoutDialogViewModel extends ViewModel {
     private MutableLiveData<Event<Integer>> totalPriceLiveData = new MutableLiveData<>();
     private MutableLiveData<Event<Integer>> totalAmountLiveData = new MutableLiveData<>();
     private MutableLiveData<Event<Boolean>> isBalanceEnough = new MutableLiveData<>();
+    private MutableLiveData<Event<Date>> reminderAlarmDateLiveData = new MutableLiveData<>();
+
     private User user;
     private Trip selectedTrip;
 
@@ -39,6 +42,9 @@ public class CheckoutDialogViewModel extends ViewModel {
         Destination destination = trip.getDestination();
         this.fare = destination.getFare();
         this.totalPrice = fare;
+        reminderAlarmDateLiveData.postValue(new Event<>(trip.getDestination().getExpectLeaveTime()));
+
+
     }
 
 
@@ -46,7 +52,12 @@ public class CheckoutDialogViewModel extends ViewModel {
         this.user = user;
 
     }
+    public void checkIfBalanceIsEnough(){
 
+        isBalanceEnough.setValue(new Event<>(user.getBalance()>=totalPrice));
+
+
+    }
     public void checkout() {
         if ( totalPrice > user.getBalance()){
             isBalanceEnough.setValue(new Event<>(false));
@@ -93,4 +104,11 @@ public class CheckoutDialogViewModel extends ViewModel {
         return totalAmountLiveData;
     }
 
+    public LiveData<Event<Date>> getReminderAlarmDate() {
+        return reminderAlarmDateLiveData;
+    }
+
+    public LiveData<Event<Boolean>> getIsBalanceEnough() {
+        return isBalanceEnough;
+    }
 }

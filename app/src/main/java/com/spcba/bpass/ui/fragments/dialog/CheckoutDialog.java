@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,7 +50,7 @@ public class CheckoutDialog extends BottomSheetDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(LobbyActivityViewModel.class);
-        checkoutDialogViewModel = new ViewModelProvider(this).get(CheckoutDialogViewModel.class);
+        checkoutDialogViewModel = new ViewModelProvider(requireActivity()).get(CheckoutDialogViewModel.class);
         startDestination = binder.startDestination;
         endDestination = binder.endDestination;
         leaveTime = binder.leaveTimeTv;
@@ -71,9 +72,7 @@ public class CheckoutDialog extends BottomSheetDialogFragment {
 
 
         buyBtn.setOnClickListener(btn -> {
-            checkoutDialogViewModel.checkout();
-            showAddAlarmDialog();
-            getDialog().dismiss();
+          checkoutDialogViewModel.checkIfBalanceIsEnough();
 
         });
         checkoutDialogViewModel.setUserDetail(viewModel.getUser().getValue());
@@ -97,6 +96,17 @@ public class CheckoutDialog extends BottomSheetDialogFragment {
         checkoutDialogViewModel.getTotalPriceLiveData().observe(getViewLifecycleOwner(), totalPriceEvent -> {
             if (totalPriceEvent.isHandled()) return;
             totalPrice.setText("₱" + String.valueOf(totalPriceEvent.getContentIfNotHandled()));
+
+        });
+        checkoutDialogViewModel.getIsBalanceEnough().observe(getViewLifecycleOwner(),checkBalanceEvent->{
+                    if (checkBalanceEvent.isHandled()) return;
+                    if (checkBalanceEvent.getContentIfNotHandled()){
+                        checkoutDialogViewModel.checkout();
+                        showAddAlarmDialog();
+                        getDialog().dismiss();
+                    }else
+                        Toast.makeText(requireContext(), "Balance is not sufficient", Toast.LENGTH_SHORT).show();
+
 
         });
 
